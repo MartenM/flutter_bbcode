@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:bbob_dart/bbob_dart.dart' as bbob;
 import 'package:flutter/gestures.dart';
@@ -29,6 +28,9 @@ class FlutterRenderer extends bbob.NodeVisitor {
   bbob.Element? _currentTag;
   bbob.Element? get currentTag => _currentTag;
 
+  /// String buffer to prevent creating lots of [InlineSpan] elements by grouping text together.
+  final StringBuffer _textBuffer = StringBuffer();
+
   FlutterRenderer({
     required this.defaultStyle,
     Set<AbstractTag> parsers = const {}
@@ -46,6 +48,7 @@ class FlutterRenderer extends bbob.NodeVisitor {
     for(var node in nodes) {
       node.accept(this);
     }
+    _writeBuffer();
 
     // Cleanup checks
     assert(_styleStack.length == 1);
@@ -55,6 +58,9 @@ class FlutterRenderer extends bbob.NodeVisitor {
 
   @override
   void visitElementAfter(bbob.Element element) {
+    // Write the current buffer
+    _writeBuffer();
+
     _currentTag = element;
 
     // Gets the corresponding BBCode tag parser.
@@ -68,6 +74,9 @@ class FlutterRenderer extends bbob.NodeVisitor {
   /// Return false if the children should be skipped. True if they should be visited.
   @override
   bool visitElementBefore(bbob.Element element) {
+    // Write previous elements
+    _writeBuffer();
+
     _currentTag = element;
 
     AbstractTag? parser = _parsers[element.tag];
@@ -83,10 +92,7 @@ class FlutterRenderer extends bbob.NodeVisitor {
 
   @override
   void visitText(bbob.Text text) {
-    _output.add(TextSpan(
-        text: text.text,
-        style: getCurrentStyle(),
-        recognizer: getCurrentGestureRecognizer()));
+    _textBuffer.write(text.text);
   }
 
   TextStyle getCurrentStyle() {
@@ -117,5 +123,16 @@ class FlutterRenderer extends bbob.NodeVisitor {
 
   Function()? peekTapAction() {
     return _tapActions.isEmpty ? null : _tapActions.last;
+  }
+
+  void _writeBuffer() {
+    if(_textBuffer.isEmpty) return;
+
+    _output.add(TextSpan(
+        text: _textBuffer.toString(),
+        style: getCurrentStyle(),
+        recognizer: getCurrentGestureRecognizer()));
+
+    _textBuffer.clear();
   }
 }

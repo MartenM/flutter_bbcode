@@ -23,13 +23,13 @@ For I am the elixir.
 
 const String flutterLogo = '''
 [h2]Flutter[/h2]
-[url=https://flutter.dev/][img]https://storage.googleapis.com/cms-storage-bucket/c823e53b3a1a7b0d36a9.png[/img][/url]
+[url=https://flutter.dev/][img]https://i.imgur.com/fvPRAWW.png[/img][/url]
 
 [i]The text is actually a link![/i] Isn't that amazing! Who would have thought you could actually do such things in [color=#00b7ff][b]Flutter[/b][/color].
 ''';
 
 const String flutterText = '''
-[img]https://storage.googleapis.com/cms-storage-bucket/c823e53b3a1a7b0d36a9.png[/img]
+[img]https://i.imgur.com/fvPRAWW.png[/img]
 
 [h1]Learn [b][color=#32b9f6]Flutter[/color][/b] any way you want[/h1]
 
