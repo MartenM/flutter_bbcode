@@ -1,8 +1,6 @@
 import 'dart:developer';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bbcode/flutter_renderer.dart';
 import 'package:flutter_bbcode/tags/tag_parser.dart';
 import 'package:flutter_bbcode/src/color_util.dart';
@@ -75,10 +73,6 @@ class UrlTag extends StyleTag {
   final Function(String)? onTap;
 
   UrlTag({this.onTap}) : super("url");
-
-  void _handleTap() {
-
-  }
 
   @override
   void onTagStart(FlutterRenderer renderer) {

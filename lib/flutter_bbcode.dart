@@ -1,6 +1,5 @@
 library flutter_bbcode;
 
-import 'dart:developer';
 
 import 'package:bbob_dart/bbob_dart.dart' as bbob;
 import 'package:flutter/foundation.dart';
