@@ -10,12 +10,16 @@ import 'package:bbob_dart/bbob_dart.dart' as bbob;
 /// These range from the bold, italic, underline to img tags.
 /// Feel free to add any tags you feel like the project is currently missing.
 
+/// Basic implementation for [b] using the [StyleTag].
+/// Defaults ot [FontWeight.bold].
 class BoldTag extends StyleTag {
-  BoldTag() : super('b');
+
+  final FontWeight weight;
+  BoldTag({this.weight = FontWeight.bold}) : super('b');
 
   @override
   TextStyle transformStyle(TextStyle oldStyle, Map<String, String>? attributes) {
-    return oldStyle.copyWith(fontWeight: FontWeight.bold);
+    return oldStyle.copyWith(fontWeight: weight);
   }
 }
 
@@ -47,6 +51,8 @@ class StrikeThroughTag extends StyleTag {
   }
 }
 
+/// Implements the [color] tag using the [StyleTag].
+/// Only supports HEX colours.
 class ColorTag extends StyleTag {
   ColorTag() : super('color');
 
@@ -58,6 +64,8 @@ class ColorTag extends StyleTag {
   }
 }
 
+/// Basic implementation of the [h<number>] tag.
+/// [_textSize] is used to define the new textSize.
 class HeaderTag extends StyleTag {
   final double _textSize;
 
@@ -69,6 +77,8 @@ class HeaderTag extends StyleTag {
   }
 }
 
+/// Default implementation of the [URL] tag.
+/// Defaults to a log function when clicked.
 class UrlTag extends StyleTag {
   final Function(String)? onTap;
 
@@ -105,7 +115,7 @@ class UrlTag extends StyleTag {
   }
 }
 
-/// Construct a IMG tag.
+/// Default [img] tag.
 /// Extends AdvancedTag because it's children should not be displayed.
 /// Instead we use those to create the image widget.
 class ImgTag extends AdvancedTag {
