@@ -1,4 +1,3 @@
-
 import 'package:bbob_dart/bbob_dart.dart' as bbob;
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode/flutter_renderer.dart';
@@ -7,9 +6,7 @@ import 'package:flutter_bbcode/flutter_renderer.dart';
 abstract class AbstractTag {
   final String tag;
 
-  AbstractTag({
-    required this.tag
-  });
+  AbstractTag({required this.tag});
 
   void onTagStart(FlutterRenderer renderer) {}
   void onTagEnd(FlutterRenderer renderer) {}
@@ -20,14 +17,14 @@ abstract class AbstractTag {
 /// If more control is required the [onTagStart] and [onTagEnd] methods can be overwritten. The [UrlTag] does this for example.
 /// Most of the style tags should inhirit from this.
 abstract class StyleTag extends AbstractTag {
-
   StyleTag(String tag) : super(tag: tag);
 
   TextStyle transformStyle(TextStyle oldStyle, Map<String, String>? attributes);
 
   @override
   void onTagStart(FlutterRenderer renderer) {
-    TextStyle newStyle = transformStyle(renderer.getCurrentStyle(), renderer.currentTag?.attributes);
+    TextStyle newStyle = transformStyle(
+        renderer.getCurrentStyle(), renderer.currentTag?.attributes);
     renderer.pushStyle(newStyle);
     super.onTagStart(renderer);
   }
@@ -48,4 +45,3 @@ abstract class AdvancedTag extends AbstractTag {
 
   List<InlineSpan> parse(FlutterRenderer renderer, bbob.Element element);
 }
-

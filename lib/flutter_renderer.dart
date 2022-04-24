@@ -1,11 +1,9 @@
-
 import 'package:bbob_dart/bbob_dart.dart' as bbob;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode/tags/tag_parser.dart';
 
 class FlutterRenderer extends bbob.NodeVisitor {
-
   /// The map that has the tags to -> parser
   /// The parsers modify the renderer.
   final Map<String, AbstractTag> _parsers = {};
@@ -31,10 +29,8 @@ class FlutterRenderer extends bbob.NodeVisitor {
   /// String buffer to prevent creating lots of [InlineSpan] elements by grouping text together.
   final StringBuffer _textBuffer = StringBuffer();
 
-  FlutterRenderer({
-    required this.defaultStyle,
-    Set<AbstractTag> parsers = const {}
-  }) {
+  FlutterRenderer(
+      {required this.defaultStyle, Set<AbstractTag> parsers = const {}}) {
     for (var parser in parsers) {
       _parsers[parser.tag] = parser;
     }
@@ -45,7 +41,7 @@ class FlutterRenderer extends bbob.NodeVisitor {
     _styleStack.clear();
     _styleStack.add(defaultStyle);
 
-    for(var node in nodes) {
+    for (var node in nodes) {
       node.accept(this);
     }
     _writeBuffer();
@@ -65,7 +61,7 @@ class FlutterRenderer extends bbob.NodeVisitor {
 
     // Gets the corresponding BBCode tag parser.
     AbstractTag? parser = _parsers[element.tag.toLowerCase()];
-    if(parser == null) return;
+    if (parser == null) return;
 
     parser.onTagEnd(this);
   }
@@ -80,10 +76,10 @@ class FlutterRenderer extends bbob.NodeVisitor {
     _currentTag = element;
 
     AbstractTag? parser = _parsers[element.tag];
-    if(parser == null) return true;
+    if (parser == null) return true;
 
     parser.onTagStart(this);
-    if(parser is AdvancedTag) {
+    if (parser is AdvancedTag) {
       _output.addAll(parser.parse(this, element));
       return false;
     }
@@ -101,7 +97,9 @@ class FlutterRenderer extends bbob.NodeVisitor {
   }
 
   TapGestureRecognizer? getCurrentGestureRecognizer() {
-    return _tapActions.isEmpty ? null : (TapGestureRecognizer()..onTap = _tapActions.last);
+    return _tapActions.isEmpty
+        ? null
+        : (TapGestureRecognizer()..onTap = _tapActions.last);
   }
 
   void pushStyle(TextStyle style) {
@@ -117,8 +115,8 @@ class FlutterRenderer extends bbob.NodeVisitor {
   }
 
   void popTapAction() {
-   assert(_tapActions.isNotEmpty);
-   _tapActions.removeLast();
+    assert(_tapActions.isNotEmpty);
+    _tapActions.removeLast();
   }
 
   Function()? peekTapAction() {
@@ -126,7 +124,7 @@ class FlutterRenderer extends bbob.NodeVisitor {
   }
 
   void _writeBuffer() {
-    if(_textBuffer.isEmpty) return;
+    if (_textBuffer.isEmpty) return;
 
     _output.add(TextSpan(
         text: _textBuffer.toString(),

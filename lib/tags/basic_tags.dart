@@ -13,12 +13,12 @@ import 'package:bbob_dart/bbob_dart.dart' as bbob;
 /// Basic implementation for [b] using the [StyleTag].
 /// Defaults ot [FontWeight.bold].
 class BoldTag extends StyleTag {
-
   final FontWeight weight;
   BoldTag({this.weight = FontWeight.bold}) : super('b');
 
   @override
-  TextStyle transformStyle(TextStyle oldStyle, Map<String, String>? attributes) {
+  TextStyle transformStyle(
+      TextStyle oldStyle, Map<String, String>? attributes) {
     return oldStyle.copyWith(fontWeight: weight);
   }
 }
@@ -27,7 +27,8 @@ class ItalicTag extends StyleTag {
   ItalicTag() : super('i');
 
   @override
-  TextStyle transformStyle(TextStyle oldStyle, Map<String, String>? attributes) {
+  TextStyle transformStyle(
+      TextStyle oldStyle, Map<String, String>? attributes) {
     return oldStyle.copyWith(fontStyle: FontStyle.italic);
   }
 }
@@ -36,17 +37,18 @@ class UnderlineTag extends StyleTag {
   UnderlineTag() : super('u');
 
   @override
-  TextStyle transformStyle(TextStyle oldStyle, Map<String, String>? attributes) {
+  TextStyle transformStyle(
+      TextStyle oldStyle, Map<String, String>? attributes) {
     return oldStyle.copyWith(decoration: TextDecoration.underline);
   }
-
 }
 
 class StrikeThroughTag extends StyleTag {
   StrikeThroughTag() : super('s');
 
   @override
-  TextStyle transformStyle(TextStyle oldStyle, Map<String, String>? attributes) {
+  TextStyle transformStyle(
+      TextStyle oldStyle, Map<String, String>? attributes) {
     return oldStyle.copyWith(decoration: TextDecoration.underline);
   }
 }
@@ -57,9 +59,10 @@ class ColorTag extends StyleTag {
   ColorTag() : super('color');
 
   @override
-  TextStyle transformStyle(TextStyle oldStyle, Map<String, String>? attributes) {
+  TextStyle transformStyle(
+      TextStyle oldStyle, Map<String, String>? attributes) {
     String? hexColor = attributes?.entries.first.key;
-    if(hexColor == null) return oldStyle;
+    if (hexColor == null) return oldStyle;
     return oldStyle.copyWith(color: HexColor.fromHex(hexColor));
   }
 }
@@ -72,7 +75,8 @@ class HeaderTag extends StyleTag {
   HeaderTag(int headerIndex, this._textSize) : super("h$headerIndex");
 
   @override
-  TextStyle transformStyle(TextStyle oldStyle, Map<String, String>? attributes) {
+  TextStyle transformStyle(
+      TextStyle oldStyle, Map<String, String>? attributes) {
     return oldStyle.copyWith(fontSize: _textSize);
   }
 }
@@ -87,14 +91,14 @@ class UrlTag extends StyleTag {
   @override
   void onTagStart(FlutterRenderer renderer) {
     late String url;
-    if(renderer.currentTag?.attributes.isNotEmpty ?? false) {
+    if (renderer.currentTag?.attributes.isNotEmpty ?? false) {
       url = renderer.currentTag!.attributes.keys.first;
     } else {
       url = "URL is missing!";
     }
 
     renderer.pushTapAction(() {
-      if(onTap == null) {
+      if (onTap == null) {
         log("URL $url has been pressed!");
         return;
       }
@@ -110,8 +114,10 @@ class UrlTag extends StyleTag {
   }
 
   @override
-  TextStyle transformStyle(TextStyle oldStyle, Map<String, String>? attributes) {
-    return oldStyle.copyWith(decoration: TextDecoration.underline, color: Colors.blue);
+  TextStyle transformStyle(
+      TextStyle oldStyle, Map<String, String>? attributes) {
+    return oldStyle.copyWith(
+        decoration: TextDecoration.underline, color: Colors.blue);
   }
 }
 
@@ -131,12 +137,13 @@ class ImgTag extends AdvancedTag {
     // the BBCode.
     String imageUrl = element.children.first.textContent;
 
-    final image = Image.network(
-        imageUrl, errorBuilder: (context, error, stack) => Text("[$tag]"));
+    final image = Image.network(imageUrl,
+        errorBuilder: (context, error, stack) => Text("[$tag]"));
 
     if (renderer.peekTapAction() != null) {
       return [
-        WidgetSpan(child: GestureDetector(
+        WidgetSpan(
+            child: GestureDetector(
           onTap: renderer.peekTapAction(),
           child: image,
         ))

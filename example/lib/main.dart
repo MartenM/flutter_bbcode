@@ -16,23 +16,22 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(
-          title: "Example BBCode outputs",
-          examples: [
-              'This is a text without ANY bbcode',
-              'This text features [b]bold[/b] text.',
-              'This text combines features [u][b]bold underlined[/u][/b] text.',
-              'This text features [url=https://mstruijk.nl]a link[/url].',
-              example_texts.story1,
-              example_texts.flutterLogo,
-              example_texts.flutterText
-          ]),
+      home: const MyHomePage(title: "Example BBCode outputs", examples: [
+        'This is a text without ANY bbcode',
+        'This text features [b]bold[/b] text.',
+        'This text combines features [u][b]bold underlined[/u][/b] text.',
+        'This text features [url=https://mstruijk.nl]a link[/url].',
+        example_texts.story1,
+        example_texts.flutterLogo,
+        example_texts.flutterText
+      ]),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title, required this.examples}) : super(key: key);
+  const MyHomePage({Key? key, required this.title, required this.examples})
+      : super(key: key);
 
   final String title;
   final List<String> examples;
@@ -42,7 +41,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   int _currentIndex = 0;
 
   void _selectNextExample() {
@@ -61,9 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Center(
-          child: parsedBBCode
-        ),
+        child: Center(child: parsedBBCode),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _selectNextExample,
