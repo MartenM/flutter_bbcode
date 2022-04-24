@@ -11,12 +11,10 @@ packages:
   bbob_dart:
     dependency: transitive
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "36d09bdb1c9c25316b9229dbd53407354f8c8a80"
-      url: "https://github.com/MartenM/bbob_dart"
-    source: git
-    version: "0.1.1"
+      name: bbob_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0-dev.1"
   boolean_selector:
     dependency: transitive
     description:
