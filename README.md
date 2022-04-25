@@ -31,7 +31,8 @@ In order to make the package versatile as possible it's possible to define your 
 ## Additional information
 
 ### Creating your own tags
-You can create your own tags by either extending the `StyleTag` class or `AdvancedTag` class. The last one takes care of all BBCode it self. This can be useful in certain situations, but the `StyleTag` should be sufficient for most style changes.
+You can create your own tags by either extending the `StyleTag`, `WrappedStyleTag` or `AdvancedTag` classes. The last one takes care of all BBCode it self. This can be useful in certain situations, but the `StyleTag` should be sufficient for most style changes.
+The `WrappedStyleTag` can be used to wrap a style around the tag. An example of a tag that implements this is the \[quote] tag.
 
 ### Contribute to the project
 Feel free to create issues and pull-requests on Github. I will take a look at them as soon as possible.
