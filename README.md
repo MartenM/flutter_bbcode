@@ -1,15 +1,3 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
 [![PubDev](https://img.shields.io/pub/v/flutter_bbcode?logo=flutter&logoColor=%235dc8f8&style=flat-square)](https://pub.dev/packages/flutter_bbcode)
 
 A simple display for BBCode in Flutter. Supports custom tags and styles.
@@ -21,7 +9,7 @@ A simple display for BBCode in Flutter. Supports custom tags and styles.
 
 ### Preview
 ![Preview 1](https://i.imgur.com/HfDDR1b.png)
-![Preview 2](https://i.imgur.com/OuXiUP2.png)
+![Preview 2](https://i.imgur.com/BHq9BQX.png)
 
 ## Getting started
 
