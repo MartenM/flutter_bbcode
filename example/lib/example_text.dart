@@ -1,24 +1,17 @@
-const String story1 = '''
-[h1]Elixir[/h1]
-Cover me up to hide your shame.
-Don't worry, though.  I'll still be the [b]victor[/b].
-You can't [s]win[/s].  This is [b]my [u]game[/u][/b].
-I'm much [b]stronger[/b], [b]smarter[/b], and [b]quicker[/b].
-I am the [i][u]medicine[/i][/u].
-I am the [b]elixir[/b].
+const String flutterPackages = '''
+[h1]Using packages[/h1]
 
-You are but a [b][color=#00b7ff]fly[/color][/b] in my [u][color=#ff6600]soup[/color][/u].
-I threw away the whole bowl.
-I'll bring every squad, army, and troop
-You're the programmer.
-I'm your infinite loop.
+[b][color=#33b9f6]Flutter[/color][/b] supports using shared packages contributed by other developers to the [b][color=#33b9f6]Flutter[/color][/b] and Dart ecosystems. This allows quickly building an app without having to develop everything from scratch.
+[quote=using-packages.md]
+[b]What is the difference between a package and a plugin?[/b]
+A plugin is a [i]type[/i] of package—the full designation is [i]plugin package[/i], which is generally shortened to [i]plugin[/i].
 
-You think you did well?
-I should give you a sticker!
-You are not that which ails me.
-For I am the elixir.
+[b]Packages[/b]
+At a minimum, a Dart package is a directory containing a pubspec file. Additionally, a package can contain dependencies (listed in the pubspec), Dart libraries, apps, resources, tests, images, and examples. The [url]pub.dev[/url] site lists many packages—developed by Google engineers and generous members of the Flutter and Dart community— that you can use in your app.
 
-[i]JG, 2010[/i]
+[b]Plugins[/b]
+A plugin package is a special kind of package that makes platform functionality available to the app. Plugin packages can be written for Android (using Kotlin or Java), iOS (using Swift or Objective-C), web, macOS, Windows, Linux, or any combination thereof. For example, a plugin might provide Flutter apps with the ability to use a device’s camera.
+[/quote]
 ''';
 
 const String flutterLogo = '''

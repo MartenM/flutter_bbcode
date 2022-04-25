@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         'This text features [b]bold[/b] text.',
         'This text combines features [u][b]bold underlined[/u][/b] text.',
         'This text features [url=https://mstruijk.nl]a link[/url].',
-        example_texts.story1,
+        example_texts.flutterPackages,
         example_texts.flutterLogo,
         example_texts.flutterText
       ]),

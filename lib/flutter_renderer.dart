@@ -1,6 +1,7 @@
 import 'package:bbob_dart/bbob_dart.dart' as bbob;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bbcode/src/parsed_element.dart';
 import 'package:flutter_bbcode/tags/tag_parser.dart';
 
 class FlutterRenderer extends bbob.NodeVisitor {
@@ -21,6 +22,11 @@ class FlutterRenderer extends bbob.NodeVisitor {
   /// The [_gestureRecognizerStack] is used to keep track of actions on the text.
   /// By default this list is empty.
   final List<Function()> _tapActions = [];
+
+  /// The [_wrapStyleBuffer] is used for elements that need styling around them.
+  /// When a list entry is present it is being written to instead of the [_output].
+  /// After the style tag ends that created the buffer it should write all output to [_output].
+  final List<ParsedElement> _wrapStyleBuffer = [];
 
   /// The current tag that is currently being parsed.
   bbob.Element? _currentTag;
@@ -49,6 +55,7 @@ class FlutterRenderer extends bbob.NodeVisitor {
     // Cleanup checks
     assert(_styleStack.length == 1);
     assert(_tapActions.isEmpty);
+    assert(_wrapStyleBuffer.isEmpty);
     return _output;
   }
 
@@ -102,10 +109,12 @@ class FlutterRenderer extends bbob.NodeVisitor {
         : (TapGestureRecognizer()..onTap = _tapActions.last);
   }
 
+  /// Pushes a [TextStyle] to the [_styleStack].
   void pushStyle(TextStyle style) {
     _styleStack.add(style);
   }
 
+  /// Pops the most recent addition from the [_styleStack].
   void popStyle() {
     _styleStack.removeLast();
   }
@@ -123,14 +132,37 @@ class FlutterRenderer extends bbob.NodeVisitor {
     return _tapActions.isEmpty ? null : _tapActions.last;
   }
 
+  void startWrappedStyle(bbob.Element element) {
+    _wrapStyleBuffer.add(ParsedElement(element));
+  }
+
+  ParsedElement endWrappedStyle() {
+    assert(_wrapStyleBuffer.isNotEmpty);
+    return _wrapStyleBuffer.removeLast();
+  }
+
+  void attachOutput(List<InlineSpan> spans) {
+    _output.addAll(spans);
+  }
+
   void _writeBuffer() {
     if (_textBuffer.isEmpty) return;
+    if(_wrapStyleBuffer.isNotEmpty) {
+      _wrapStyleBuffer.last.addChild(_createSpan());
+      _textBuffer.clear();
+      return;
+    }
 
-    _output.add(TextSpan(
-        text: _textBuffer.toString(),
-        style: getCurrentStyle(),
-        recognizer: getCurrentGestureRecognizer()));
+    _output.add(_createSpan());
 
     _textBuffer.clear();
+  }
+
+  TextSpan _createSpan() {
+    return TextSpan(
+        text: _textBuffer.toString(),
+        style: getCurrentStyle(),
+        recognizer: getCurrentGestureRecognizer()
+    );
   }
 }

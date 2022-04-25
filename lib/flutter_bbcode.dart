@@ -1,5 +1,7 @@
 library flutter_bbcode;
 
+import 'dart:developer';
+
 import 'package:bbob_dart/bbob_dart.dart' as bbob;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,7 @@ Set<AbstractTag> allTags = {
   HeaderTag(6, 16),
   UrlTag(),
   ImgTag(),
+  QuoteTag(),
 };
 
 /// A paragraph of BBCode text.
@@ -60,10 +63,15 @@ class BBCodeText extends StatelessWidget {
     });
 
     if (error != null || stackTrace != null) {
-      if (kDebugMode) throw error!;
+      if (kDebugMode) {
+        log(error.toString());
+        log(stackTrace.toString());
+        return ErrorWidget.withDetails(message: "An error occurred while attempting to parse the BBCode.\n${error.toString()}");
+      }
+
       return RichText(
           text: const TextSpan(
-              text: "An error occured attempting to parse the BBCode."));
+              text: "An error occurred attempting to parse the BBCode."));
     }
 
     if (selectable) {

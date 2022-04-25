@@ -36,12 +36,41 @@ abstract class StyleTag extends AbstractTag {
   }
 }
 
-/// An abstract tag takes fully control over it's children.
+/// An wrapped style tag allows the tag to wrap the children with a style.
+/// This can for example be useful for [\QUOTE] tags that require a different styling around them.
+abstract class WrappedStyleTag extends AbstractTag {
+  WrappedStyleTag(String tag) : super(tag: tag);
+
+  /// Method that should be overwritten by the implementing tag.
+  /// The [spans] are all styled children of this tag.
+  /// A list of [InlineSpan] should be returned. For a quote tag this would be one single element.
+  List<InlineSpan> wrap(bbob.Element element, List<InlineSpan> spans);
+
+  @override
+  void onTagStart(FlutterRenderer renderer) {
+    renderer.startWrappedStyle(renderer.currentTag!);
+    super.onTagStart(renderer);
+  }
+
+  @override
+  void onTagEnd(FlutterRenderer renderer) {
+    final wrappedElement = renderer.endWrappedStyle();
+    final output = wrap(wrappedElement.element, wrappedElement.parsedChildren);
+    renderer.attachOutput([const TextSpan(text: "\n")]);
+    renderer.attachOutput(output);
+    renderer.attachOutput([const TextSpan(text: "\n")]);
+    super.onTagEnd(renderer);
+  }
+}
+
+/// An advanced tag takes fully control over it's children.
 /// This can be useful when it requires different styling.
 /// Do note that it should respect the latest [StyleTag] and tap action of the renderer.
 /// This is mostly to ensure that the [UrlTag] keeps working.
 abstract class AdvancedTag extends AbstractTag {
-  AdvancedTag(String tag) : super(tag: tag);
+  final bool visitChildren;
+
+  AdvancedTag(String tag, {this.visitChildren = false}) : super(tag: tag);
 
   List<InlineSpan> parse(FlutterRenderer renderer, bbob.Element element);
 }
