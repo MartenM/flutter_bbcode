@@ -56,9 +56,7 @@ abstract class WrappedStyleTag extends AbstractTag {
   void onTagEnd(FlutterRenderer renderer) {
     final wrappedElement = renderer.endWrappedStyle();
     final output = wrap(wrappedElement.element, wrappedElement.parsedChildren);
-    renderer.attachOutput([const TextSpan(text: "\n")]);
     renderer.attachOutput(output);
-    renderer.attachOutput([const TextSpan(text: "\n")]);
     super.onTagEnd(renderer);
   }
 }

@@ -15,5 +15,9 @@ class ParsedElement {
     _parsedChildren.add(span);
   }
 
+  void addAllChild(List<InlineSpan> spans) {
+    _parsedChildren.addAll(spans);
+  }
+
   List<InlineSpan> get parsedChildren => _parsedChildren;
 }

@@ -174,6 +174,7 @@ class QuoteTag extends WrappedStyleTag {
     return [
       WidgetSpan(child:
         Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
           decoration: const BoxDecoration(
             border: Border(left: BorderSide(color: Colors.grey, width: 2))
           ),
@@ -183,6 +184,7 @@ class QuoteTag extends WrappedStyleTag {
                 padding: const EdgeInsets.all(5),
                 width: double.infinity,
                 decoration: const BoxDecoration(
+                  color: Colors.white,
                   border: Border(bottom: BorderSide(color: Colors.grey, width: 1))
                 ),
                 child: Text("$author said:", style: headerStyleText),
@@ -190,7 +192,7 @@ class QuoteTag extends WrappedStyleTag {
               Container(
                   width: double.infinity,
                   color: const Color.fromARGB(255, 235, 235, 235),
-                  padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
+                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                   child: RichText(text: TextSpan(children: spans)))
             ],
           ),

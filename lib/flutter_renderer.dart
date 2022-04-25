@@ -142,6 +142,10 @@ class FlutterRenderer extends bbob.NodeVisitor {
   }
 
   void attachOutput(List<InlineSpan> spans) {
+    if(_wrapStyleBuffer.isNotEmpty) {
+      _wrapStyleBuffer.last.addAllChild(spans);
+      return;
+    }
     _output.addAll(spans);
   }
 
