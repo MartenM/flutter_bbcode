@@ -93,6 +93,8 @@ class UrlTag extends StyleTag {
     late String url;
     if (renderer.currentTag?.attributes.isNotEmpty ?? false) {
       url = renderer.currentTag!.attributes.keys.first;
+    } else if(renderer.currentTag?.children.isNotEmpty ?? false) {
+      url = renderer.currentTag!.children.first.textContent;
     } else {
       url = "URL is missing!";
     }
@@ -154,6 +156,45 @@ class ImgTag extends AdvancedTag {
       WidgetSpan(
         child: image,
       )
+    ];
+  }
+}
+
+class QuoteTag extends WrappedStyleTag {
+  final TextStyle headerStyleText;
+
+  QuoteTag({
+    this.headerStyleText = const TextStyle(),
+  }) : super("quote");
+
+  @override
+  List<InlineSpan> wrap(bbob.Element element, List<InlineSpan> spans) {
+    String? author = element.attributes.isNotEmpty ? element.attributes.values.first : null;
+
+    return [
+      WidgetSpan(child:
+        Container(
+          decoration: const BoxDecoration(
+            border: Border(left: BorderSide(color: Colors.grey, width: 2))
+          ),
+          child: Column(
+            children: [
+              if(author != null) Container(
+                padding: const EdgeInsets.all(5),
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  border: Border(bottom: BorderSide(color: Colors.grey, width: 1))
+                ),
+                child: Text("$author said:", style: headerStyleText),
+              ),
+              Container(
+                  color: const Color.fromARGB(255, 235, 235, 235),
+                  padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
+                  child: RichText(text: TextSpan(children: spans)))
+            ],
+          ),
+        )
+      ),
     ];
   }
 }
