@@ -188,6 +188,7 @@ class QuoteTag extends WrappedStyleTag {
                 child: Text("$author said:", style: headerStyleText),
               ),
               Container(
+                  width: double.infinity,
                   color: const Color.fromARGB(255, 235, 235, 235),
                   padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
                   child: RichText(text: TextSpan(children: spans)))
