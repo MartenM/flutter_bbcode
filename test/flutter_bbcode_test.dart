@@ -81,28 +81,28 @@ void main() {
 
     test("Wrapped style tag (Quote test)", () {
       List<InlineSpan> spans = parseBBCode(
-        "Test. [quote]Hey you![/quote] okay?",
-        defaultStyle: defaultStyle
-      );
-      expect(spans.length, 3, reason: "Quote is seen as one span. Output: ${spans.toString()}");
+          "Test. [quote]Hey you![/quote] okay?",
+          defaultStyle: defaultStyle);
+      expect(spans.length, 3,
+          reason: "Quote is seen as one span. Output: ${spans.toString()}");
       expect(spans[1] is WidgetSpan, true);
     });
 
     test("Wrapped style tag (Quote test - bold)", () {
       List<InlineSpan> spans = parseBBCode(
           "Test. [quote]Hey [b]you![/b][/quote] okay?",
-          defaultStyle: defaultStyle
-      );
-      expect(spans.length, 3, reason: "Quote is seen as one span. Output: ${spans.toString()}");
+          defaultStyle: defaultStyle);
+      expect(spans.length, 3,
+          reason: "Quote is seen as one span. Output: ${spans.toString()}");
       expect(spans[1] is WidgetSpan, true);
     });
 
     test("Wrapped style tag (Quote test - quote in quote)", () {
       List<InlineSpan> spans = parseBBCode(
           "[quote][quote]Hello[/quote][/quote]",
-          defaultStyle: defaultStyle
-      );
-      expect(spans.length, 1, reason: "Quote is seen as one span. Output: ${spans.toString()}");
+          defaultStyle: defaultStyle);
+      expect(spans.length, 1,
+          reason: "Quote is seen as one span. Output: ${spans.toString()}");
       expect(spans[0] is WidgetSpan, true);
     });
   });

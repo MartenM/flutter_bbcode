@@ -1,5 +1,3 @@
-
-
 import 'package:bbob_dart/bbob_dart.dart' as bbob;
 import 'package:flutter/cupertino.dart';
 
@@ -8,9 +6,9 @@ import 'package:flutter/cupertino.dart';
 class ParsedElement {
   final bbob.Element element;
   final List<InlineSpan> _parsedChildren = [];
-  
+
   ParsedElement(this.element);
-  
+
   void addChild(InlineSpan span) {
     _parsedChildren.add(span);
   }

@@ -142,7 +142,7 @@ class FlutterRenderer extends bbob.NodeVisitor {
   }
 
   void attachOutput(List<InlineSpan> spans) {
-    if(_wrapStyleBuffer.isNotEmpty) {
+    if (_wrapStyleBuffer.isNotEmpty) {
       _wrapStyleBuffer.last.addAllChild(spans);
       return;
     }
@@ -151,7 +151,7 @@ class FlutterRenderer extends bbob.NodeVisitor {
 
   void _writeBuffer() {
     if (_textBuffer.isEmpty) return;
-    if(_wrapStyleBuffer.isNotEmpty) {
+    if (_wrapStyleBuffer.isNotEmpty) {
       _wrapStyleBuffer.last.addChild(_createSpan());
       _textBuffer.clear();
       return;
@@ -166,7 +166,6 @@ class FlutterRenderer extends bbob.NodeVisitor {
     return TextSpan(
         text: _textBuffer.toString(),
         style: getCurrentStyle(),
-        recognizer: getCurrentGestureRecognizer()
-    );
+        recognizer: getCurrentGestureRecognizer());
   }
 }

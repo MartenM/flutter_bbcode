@@ -93,7 +93,7 @@ class UrlTag extends StyleTag {
     late String url;
     if (renderer.currentTag?.attributes.isNotEmpty ?? false) {
       url = renderer.currentTag!.attributes.keys.first;
-    } else if(renderer.currentTag?.children.isNotEmpty ?? false) {
+    } else if (renderer.currentTag?.children.isNotEmpty ?? false) {
       url = renderer.currentTag!.children.first.textContent;
     } else {
       url = "URL is missing!";
@@ -169,35 +169,35 @@ class QuoteTag extends WrappedStyleTag {
 
   @override
   List<InlineSpan> wrap(bbob.Element element, List<InlineSpan> spans) {
-    String? author = element.attributes.isNotEmpty ? element.attributes.values.first : null;
+    String? author =
+        element.attributes.isNotEmpty ? element.attributes.values.first : null;
 
     return [
-      WidgetSpan(child:
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          decoration: const BoxDecoration(
-            border: Border(left: BorderSide(color: Colors.grey, width: 2))
-          ),
-          child: Column(
-            children: [
-              if(author != null) Container(
+      WidgetSpan(
+          child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        decoration: const BoxDecoration(
+            border: Border(left: BorderSide(color: Colors.grey, width: 2))),
+        child: Column(
+          children: [
+            if (author != null)
+              Container(
                 padding: const EdgeInsets.all(5),
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
-                  border: Border(bottom: BorderSide(color: Colors.grey, width: 1))
-                ),
+                    color: Colors.white,
+                    border: Border(
+                        bottom: BorderSide(color: Colors.grey, width: 1))),
                 child: Text("$author said:", style: headerStyleText),
               ),
-              Container(
-                  width: double.infinity,
-                  color: const Color.fromARGB(255, 235, 235, 235),
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                  child: RichText(text: TextSpan(children: spans)))
-            ],
-          ),
-        )
-      ),
+            Container(
+                width: double.infinity,
+                color: const Color.fromARGB(255, 235, 235, 235),
+                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                child: RichText(text: TextSpan(children: spans)))
+          ],
+        ),
+      )),
     ];
   }
 }

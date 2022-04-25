@@ -66,7 +66,9 @@ class BBCodeText extends StatelessWidget {
       if (kDebugMode) {
         log(error.toString());
         log(stackTrace.toString());
-        return ErrorWidget.withDetails(message: "An error occurred while attempting to parse the BBCode.\n${error.toString()}");
+        return ErrorWidget.withDetails(
+            message:
+                "An error occurred while attempting to parse the BBCode.\n${error.toString()}");
       }
 
       return RichText(
