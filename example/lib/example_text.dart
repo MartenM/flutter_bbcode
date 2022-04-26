@@ -39,3 +39,18 @@ Learn new things about [b][color=#32b9f6]Flutter[/color][/b], continue to expand
 
 [url=https://flutter.dev]Click here to learn more[/url]
 ''';
+
+const String flutterDevtools = '''
+[h1]DevTools[/h1]
+[h4]For debugging and profiling apps, DevTools might be the first tool you reach for. DevTools runs in a browser and supports a variety of features:[/h4]
+[spoiler=Logging]Another useful debugging tool is logging. You set logging up programmatically then view the output in the DevTools logging view, or in the console.[/spoiler]
+[spoiler="The Dart analyzer"]If you’re using a Flutter enabled IDE/editor, the Dart analyzer is already checking your code and looking for possible mistakes.
+
+If you run from the command line, test your code with flutter analyze.
+
+The Dart analyzer makes heavy use of type annotations that you put in your code to help track problems down. You are encouraged to use them everywhere (avoiding var, untyped arguments, untyped list literals, and so on) as this is the quickest and least painful way of tracking down problems.
+
+For more information, see Using the Dart analyzer.[/spoiler]
+[spoiler=Measuring app startup time]To gather detailed information about the time it takes for your Flutter app to start, you can run the flutter run command with the trace-startup and profile options.
+[quote]flutter run --trace-startup --profile[/quote][/spoiler]
+''';

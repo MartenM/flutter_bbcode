@@ -25,6 +25,7 @@ Set<AbstractTag> allTags = {
   UrlTag(),
   ImgTag(),
   QuoteTag(),
+  SpoilerTag(),
 };
 
 /// A paragraph of BBCode text.

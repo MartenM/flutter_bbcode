@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class QuoteDisplay extends StatelessWidget {
-
   final String? author;
   final TextStyle headerTextStyle;
   final List<InlineSpan> content;
 
-  const QuoteDisplay({
-    Key? key,
-    required this.content,
-    this.author,
-    this.headerTextStyle = const TextStyle()
-  }) : super(key: key);
+  const QuoteDisplay(
+      {Key? key,
+      required this.content,
+      this.author,
+      this.headerTextStyle = const TextStyle()})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +27,8 @@ class QuoteDisplay extends StatelessWidget {
               width: double.infinity,
               decoration: const BoxDecoration(
                   color: Colors.white,
-                  border: Border(
-                      bottom: BorderSide(color: Colors.grey, width: 1))),
+                  border:
+                      Border(bottom: BorderSide(color: Colors.grey, width: 1))),
               child: Text("$author said:", style: headerTextStyle),
             ),
           Container(

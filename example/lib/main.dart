@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
         'This text features [url=https://mstruijk.nl]a link[/url].',
         example_texts.flutterPackages,
         example_texts.flutterLogo,
-        example_texts.flutterText
+        example_texts.flutterText,
+        example_texts.flutterDevtools
       ]),
     );
   }
