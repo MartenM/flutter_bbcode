@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode/flutter_renderer.dart';
+import 'package:flutter_bbcode/src/tag_widgets/quote_widget.dart';
 import 'package:flutter_bbcode/tags/tag_parser.dart';
 import 'package:flutter_bbcode/src/color_util.dart';
 import 'package:bbob_dart/bbob_dart.dart' as bbob;
@@ -161,10 +162,10 @@ class ImgTag extends AdvancedTag {
 }
 
 class QuoteTag extends WrappedStyleTag {
-  final TextStyle headerStyleText;
+  final TextStyle headerTextStyle;
 
   QuoteTag({
-    this.headerStyleText = const TextStyle(),
+    this.headerTextStyle = const TextStyle(),
   }) : super("quote");
 
   @override
@@ -174,30 +175,12 @@ class QuoteTag extends WrappedStyleTag {
 
     return [
       WidgetSpan(
-          child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        decoration: const BoxDecoration(
-            border: Border(left: BorderSide(color: Colors.grey, width: 2))),
-        child: Column(
-          children: [
-            if (author != null)
-              Container(
-                padding: const EdgeInsets.all(5),
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                        bottom: BorderSide(color: Colors.grey, width: 1))),
-                child: Text("$author said:", style: headerStyleText),
-              ),
-            Container(
-                width: double.infinity,
-                color: const Color.fromARGB(255, 235, 235, 235),
-                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                child: RichText(text: TextSpan(children: spans)))
-          ],
-        ),
-      )),
+          child: QuoteDisplay(
+            author: author,
+            headerTextStyle: headerTextStyle,
+            content: spans,
+          )
+      ),
     ];
   }
 }
