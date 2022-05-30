@@ -57,5 +57,5 @@ For more information, see Using the Dart analyzer.[/spoiler]
 
 const String badBBCode = '''
 This example shows [color]what happens when parsing BBCode fails.
-It should not happen in general, but tags can fail rendering. For example when an argument is not supplied.
+It should not happen in general, but [b]tags can fail rendering[/b]. For example when an argument is not supplied.
 ''';

@@ -61,8 +61,12 @@ class ColorTag extends StyleTag {
   ColorTag() : super('color');
 
   @override
-  TextStyle transformStyle(
-      TextStyle oldStyle, Map<String, String>? attributes) {
+  TextStyle transformStyle(TextStyle oldStyle,
+      Map<String, String>? attributes) {
+    if (attributes?.entries.isEmpty ?? true) {
+      return oldStyle;
+    }
+
     String? hexColor = attributes?.entries.first.key;
     if (hexColor == null) return oldStyle;
     return oldStyle.copyWith(color: HexColor.fromHex(hexColor));
