@@ -30,6 +30,18 @@ In order to make the package versatile as possible it's possible to define your 
 
 ## Additional information
 
+### Currently support tags by default
+* [B] - Bold text
+* [I] - Italic text
+* [U] - Underlined text
+* [S] - Strikethrough text
+* [COLOR=#HEX] - Coloured text based on HEX
+* [H1] - Header text, supported up till [H6]
+* [URL=https://google.com] - Supported with or without text. Can also be used to surrouned an URL to make it clickable. Default action is a log message. Opening a webbrowser or any other actions need to be implemented by the developer.
+* [IMG=src] - Display an image from the internet.
+* [QUOTE=Marten] - Used to wrap text in a quote block.
+* [SPOILER=Name] - Used to create a clickable spoiler tag.
+
 ### Creating your own tags
 You can create your own tags by either extending the `StyleTag`, `WrappedStyleTag` or `AdvancedTag` classes. The last one takes care of all BBCode it self. This can be useful in certain situations, but the `StyleTag` should be sufficient for most style changes.
 The `WrappedStyleTag` can be used to wrap a style around the tag. An example of a tag that implements this is the \[quote] tag.
