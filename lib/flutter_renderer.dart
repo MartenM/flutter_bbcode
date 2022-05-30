@@ -1,8 +1,24 @@
+import 'dart:developer';
+
 import 'package:bbob_dart/bbob_dart.dart' as bbob;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode/src/parsed_element.dart';
 import 'package:flutter_bbcode/tags/tag_parser.dart';
+
+class TagRenderException implements Exception {
+  bbob.Element element;
+  Object parent;
+  StackTrace? stackTrace;
+
+  TagRenderException(this.element, this.parent, this.stackTrace);
+
+  @override
+  String toString() {
+    return "Failed to parse the tag: [${element.tag}]. Reason: ${parent.toString()}";
+  }
+}
 
 class FlutterRenderer extends bbob.NodeVisitor {
   /// The map that has the tags to -> parser
@@ -85,12 +101,21 @@ class FlutterRenderer extends bbob.NodeVisitor {
     AbstractTag? parser = _parsers[element.tag];
     if (parser == null) return true;
 
-    parser.onTagStart(this);
-    if (parser is AdvancedTag) {
-      _output.addAll(parser.parse(this, element));
-      return false;
+    try {
+      parser.onTagStart(this);
+      if (parser is AdvancedTag) {
+        _output.addAll(parser.parse(this, element));
+        return false;
+      }
+      return true;
+    } catch(error, stack) {
+      // When in debug mode print the original stack too. This can help debugging the actual tag parser.
+      if(kDebugMode) {
+        log("The original stacktrace for this error:");
+        log(stack.toString());
+      }
+      throw TagRenderException(element, error, stack);
     }
-    return true;
   }
 
   @override

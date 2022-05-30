@@ -16,16 +16,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: "Example BBCode outputs", examples: [
-        'This is a text without ANY bbcode',
-        'This text features [b]bold[/b] text.',
-        'This text combines features [u][b]bold underlined[/u][/b] text.',
-        'This text features [url=https://mstruijk.nl]a link[/url].',
-        example_texts.flutterPackages,
-        example_texts.flutterLogo,
-        example_texts.flutterText,
-        example_texts.flutterDevtools
-      ]),
+      home: const MyHomePage(
+          title: "Example BBCode outputs",
+          examples: [
+            'This is a text without ANY bbcode',
+            'This text features [b]bold[/b] text.',
+            'This text combines features [u][b]bold underlined[/u][/b] text.',
+            'This text features [url=https://mstruijk.nl]a link[/url].',
+            example_texts.flutterPackages,
+            example_texts.flutterLogo,
+            example_texts.flutterText,
+            example_texts.flutterDevtools,
+            example_texts.badBBCode,
+          ]),
     );
   }
 }
@@ -52,7 +55,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget parsedBBCode = BBCodeText(data: widget.examples[_currentIndex]);
+    Widget parsedBBCode = BBCodeText(
+        errorBuilder: (context, error, stack) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text("Failed to parse BBCode correctly.", style: TextStyle(color: Colors.red)),
+              const Text("This usually means on of the tags is not properly handling unexpected input.\n"),
+              Text(error.toString()),
+            ],
+          );
+        },
+        data: widget.examples[_currentIndex]
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -66,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _selectNextExample,
         tooltip: 'Refresh',
         child: const Icon(Icons.refresh),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

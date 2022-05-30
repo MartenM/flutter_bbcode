@@ -54,3 +54,8 @@ For more information, see Using the Dart analyzer.[/spoiler]
 [spoiler=Measuring app startup time]To gather detailed information about the time it takes for your Flutter app to start, you can run the flutter run command with the trace-startup and profile options.
 [quote]flutter run --trace-startup --profile[/quote][/spoiler]
 ''';
+
+const String badBBCode = '''
+This example shows [color]what happens when parsing BBCode fails.
+It should not happen in general, but tags can fail rendering. For example when an argument is not supplied.
+''';

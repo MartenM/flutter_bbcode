@@ -28,12 +28,34 @@ Set<AbstractTag> allTags = {
   SpoilerTag(),
 };
 
+/// Signature used by [BBCodeText.errorBuilder] to create a replacement when BBCode could not be parsed
+/// correctly.
+typedef BBCodeErrorWidgetBuilder = Widget Function(
+    BuildContext context,
+    Object error,
+    StackTrace? stackTrace
+);
+
 /// A paragraph of BBCode text.
 class BBCodeText extends StatelessWidget {
+
+  /// The data to be rendered. Usually a text that contains BBCode tags.
   final String data;
+
+  /// If the text should be selectable or not.
   final bool selectable;
+
+  /// An set of [AbstractTag] parsers. These handle the tags that are parsed into widgets.
   final Set<AbstractTag>? tagsParsers;
+
+  /// The default text style used by the widget.
   final TextStyle? defaultStyle;
+
+  /// The error builder that's used when something went wrong during the parsing of the BBCode.
+  /// When the [errorBuilder] is left as NULL parse failures will either result in:
+  /// 1. An error widget when in debug mode.
+  /// 2. An text widget with the original text when not in debug mode.
+  final BBCodeErrorWidgetBuilder? errorBuilder;
 
   /// Creates a paragraph of BBCode text.
   /// The [data] should be a string of BBCode text. This text can contain line breaks.
@@ -47,6 +69,7 @@ class BBCodeText extends StatelessWidget {
     this.selectable = false,
     this.tagsParsers,
     this.defaultStyle,
+    this.errorBuilder
   }) : super(key: key);
 
   @override
@@ -63,18 +86,29 @@ class BBCodeText extends StatelessWidget {
       stackTrace = stack;
     });
 
-    if (error != null || stackTrace != null) {
+    // Handle any potential errors.
+    if (error != null) {
+
+      // Log the error if the app is running in debug mode or if verbose logging has been enabled.
       if (kDebugMode) {
         log(error.toString());
         log(stackTrace.toString());
-        return ErrorWidget.withDetails(
-            message:
-                "An error occurred while attempting to parse the BBCode.\n${error.toString()}");
+
+        if(errorBuilder == null) {
+          return ErrorWidget.withDetails(
+              message:
+                  "An error occurred while attempting to parse the BBCode.\n${error.toString()}"
+                  "\n\n"
+                  "No error builder was provided."
+          );
+        }
       }
 
-      return RichText(
-          text: const TextSpan(
-              text: "An error occurred attempting to parse the BBCode."));
+      if(errorBuilder == null) {
+        return Text(data);
+      }
+
+      return errorBuilder!(context, error!, stackTrace);
     }
 
     if (selectable) {
