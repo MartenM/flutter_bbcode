@@ -51,7 +51,7 @@ class StrikeThroughTag extends StyleTag {
   @override
   TextStyle transformStyle(
       TextStyle oldStyle, Map<String, String>? attributes) {
-    return oldStyle.copyWith(decoration: TextDecoration.underline);
+    return oldStyle.copyWith(decoration: TextDecoration.lineThrough);
   }
 }
 
@@ -61,8 +61,8 @@ class ColorTag extends StyleTag {
   ColorTag() : super('color');
 
   @override
-  TextStyle transformStyle(TextStyle oldStyle,
-      Map<String, String>? attributes) {
+  TextStyle transformStyle(
+      TextStyle oldStyle, Map<String, String>? attributes) {
     if (attributes?.entries.isEmpty ?? true) {
       return oldStyle;
     }
