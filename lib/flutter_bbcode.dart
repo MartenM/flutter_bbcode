@@ -31,14 +31,10 @@ Set<AbstractTag> allTags = {
 /// Signature used by [BBCodeText.errorBuilder] to create a replacement when BBCode could not be parsed
 /// correctly.
 typedef BBCodeErrorWidgetBuilder = Widget Function(
-    BuildContext context,
-    Object error,
-    StackTrace? stackTrace
-);
+    BuildContext context, Object error, StackTrace? stackTrace);
 
 /// A paragraph of BBCode text.
 class BBCodeText extends StatelessWidget {
-
   /// The data to be rendered. Usually a text that contains BBCode tags.
   final String data;
 
@@ -63,14 +59,14 @@ class BBCodeText extends StatelessWidget {
   /// A [defaultStyle] can be supplied to the builder.
   /// The [tagParsers] are the parsers for the tags. When left empty, all available tag parsers will be used. One might
   /// want to get the subset of [_allTags] and additionally overwrite some like [UrlTag] to fit with the style scheme.
-  const BBCodeText({
-    Key? key,
-    required this.data,
-    this.selectable = false,
-    this.tagsParsers,
-    this.defaultStyle,
-    this.errorBuilder
-  }) : super(key: key);
+  const BBCodeText(
+      {Key? key,
+      required this.data,
+      this.selectable = false,
+      this.tagsParsers,
+      this.defaultStyle,
+      this.errorBuilder})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -88,23 +84,21 @@ class BBCodeText extends StatelessWidget {
 
     // Handle any potential errors.
     if (error != null) {
-
       // Log the error if the app is running in debug mode or if verbose logging has been enabled.
       if (kDebugMode) {
         log(error.toString());
         log(stackTrace.toString());
 
-        if(errorBuilder == null) {
+        if (errorBuilder == null) {
           return ErrorWidget.withDetails(
               message:
                   "An error occurred while attempting to parse the BBCode.\n${error.toString()}"
                   "\n\n"
-                  "No error builder was provided."
-          );
+                  "No error builder was provided.");
         }
       }
 
-      if(errorBuilder == null) {
+      if (errorBuilder == null) {
         return Text(data);
       }
 

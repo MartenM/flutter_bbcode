@@ -108,9 +108,9 @@ class FlutterRenderer extends bbob.NodeVisitor {
         return false;
       }
       return true;
-    } catch(error, stack) {
+    } catch (error, stack) {
       // When in debug mode print the original stack too. This can help debugging the actual tag parser.
-      if(kDebugMode) {
+      if (kDebugMode) {
         log("The original stacktrace for this error:");
         log(stack.toString());
       }
