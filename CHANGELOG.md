@@ -1,3 +1,6 @@
+## 1.1.3
+* Fixed the strikethrough BBCode tag.
+
 ## 1.1.2
 * Added the option for an ErrorBuilder when parsing fails. Defaults to showing the original text.
 * Improved the color tag such that it should no longer throw any errors.
