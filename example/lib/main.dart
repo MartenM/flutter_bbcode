@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           examples: [
             'This is a text without ANY bbcode',
             'This text features [b]bold[/b] text.',
-            'This text combines features [u][b]bold underlined[/u][/b] text.',
+            'This text [s]is epic[/s] combines features [u][b]bold underlined[/u][/b] text.',
             'This text features [url=https://mstruijk.nl]a link[/url].',
             example_texts.flutterPackages,
             example_texts.flutterLogo,
