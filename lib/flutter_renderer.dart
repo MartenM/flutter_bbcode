@@ -24,9 +24,7 @@ class TagRenderException implements Exception {
 
 /// Empty class from which other nodes can extend.
 /// Render data is used to give information about the rendering process to child nodes.
-abstract class RenderData {
-
-}
+abstract class RenderData {}
 
 /// The flutter rendered walks through list of [bbob.Node]s.
 /// The output is a InlineSpan which can be used by the [RichText] widget.
@@ -197,7 +195,7 @@ class FlutterRenderer extends bbob.NodeVisitor {
   /// Gets the currently used [RenderData] such that it can be used
   /// by a child node.
   RenderData getRenderData() {
-    assert (_renderDataStack.isNotEmpty);
+    assert(_renderDataStack.isNotEmpty);
     return _renderDataStack.last;
   }
 

@@ -27,7 +27,14 @@ Set<AbstractTag> allTags = {
   ImgTag(),
   QuoteTag(),
   SpoilerTag(),
-  ListTag(ListItemStyle("%index%. ", const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)), ListItemStyle("● ", const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent))),
+  ListTag(
+      ListItemStyle(
+          "%index%. ",
+          const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+      ListItemStyle(
+          "● ",
+          const TextStyle(
+              fontWeight: FontWeight.bold, color: Colors.blueAccent))),
   ListItem()
 };
 
