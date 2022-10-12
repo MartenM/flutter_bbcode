@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bbcode/src/parsed_element.dart';
 import 'package:flutter_bbcode/tags/tag_parser.dart';
 
+/// An exception when rendering a tag results in an error.
+/// This is usually due to faulty implementations.
 class TagRenderException implements Exception {
   bbob.Element element;
   Object parent;
@@ -20,10 +22,14 @@ class TagRenderException implements Exception {
   }
 }
 
+/// Empty class from which other nodes can extend.
+/// Render data is used to give information about the rendering process to child nodes.
 abstract class RenderData {
 
 }
 
+/// The flutter rendered walks through list of [bbob.Node]s.
+/// The output is a InlineSpan which can be used by the [RichText] widget.
 class FlutterRenderer extends bbob.NodeVisitor {
   /// The map that has the tags to -> parser
   /// The parsers modify the renderer.
@@ -166,37 +172,60 @@ class FlutterRenderer extends bbob.NodeVisitor {
     return _tapActions.isEmpty ? null : _tapActions.last;
   }
 
+  /// Creates a new buffer for a wrapped style.
   void startWrappedStyle(bbob.Element element) {
     _wrapStyleBuffer.add(ParsedElement(element));
   }
 
+  /// Ends a wrapped style and returns the [ParsedElement]
   ParsedElement endWrappedStyle() {
     assert(_wrapStyleBuffer.isNotEmpty);
     return _wrapStyleBuffer.removeLast();
   }
 
+  /// Adds a new [RenderData] object to the [_renderDataStack].
   void startRenderData(RenderData data) {
     _renderDataStack.add(data);
   }
 
+  /// Pops the last render data from the stack.
   void endRenderData() {
     assert(_renderDataStack.isNotEmpty);
     _renderDataStack.removeLast();
   }
 
+  /// Gets the currently used [RenderData] such that it can be used
+  /// by a child node.
   RenderData getRenderData() {
     assert (_renderDataStack.isNotEmpty);
     return _renderDataStack.last;
   }
 
-  void attachOutput(List<InlineSpan> spans) {
+  /// Appends [TextSpan]s and writes it to the current [_wrappedStyleBuffer] or
+  /// writes it to the output directly.
+  void appendTextSpans(List<InlineSpan> spans) {
     if (_wrapStyleBuffer.isNotEmpty) {
       _wrapStyleBuffer.last.addAllChild(spans);
       return;
     }
+
     _output.addAll(spans);
   }
 
+  /// Appends a [TextSpan] and writes it to the current [_wrappedStyleBuffer] or
+  /// writes it to the output directly.
+  void appendTextSpan(TextSpan span) {
+    if (_wrapStyleBuffer.isNotEmpty) {
+      _wrapStyleBuffer.last.addChild(span);
+      _textBuffer.clear();
+      return;
+    }
+
+    _output.add(span);
+  }
+
+  /// Writes the current text buffer to the correct output.
+  /// This can either be a wrappedStyle or the output.
   void _writeBuffer() {
     if (_textBuffer.isEmpty) return;
     if (_wrapStyleBuffer.isNotEmpty) {
@@ -210,16 +239,7 @@ class FlutterRenderer extends bbob.NodeVisitor {
     _textBuffer.clear();
   }
 
-  void appendTextSpan(TextSpan span) {
-    if (_wrapStyleBuffer.isNotEmpty) {
-      _wrapStyleBuffer.last.addChild(span);
-      _textBuffer.clear();
-      return;
-    }
-
-    _output.add(span);
-  }
-
+  /// Creates a [TextSpan] from the [_textBuffer].
   TextSpan _createSpan() {
     return TextSpan(
         text: _textBuffer.toString(),
