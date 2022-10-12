@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode/flutter_renderer.dart';
 import 'package:flutter_bbcode/tags/basic_tags.dart';
+import 'package:flutter_bbcode/tags/list_tag.dart';
 import 'package:flutter_bbcode/tags/tag_parser.dart';
 
 Set<AbstractTag> allTags = {
@@ -26,6 +27,8 @@ Set<AbstractTag> allTags = {
   ImgTag(),
   QuoteTag(),
   SpoilerTag(),
+  ListTag(ListItemStyle("%index%. ", const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)), ListItemStyle("● ", const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent))),
+  ListItem()
 };
 
 /// Signature used by [BBCodeText.errorBuilder] to create a replacement when BBCode could not be parsed
