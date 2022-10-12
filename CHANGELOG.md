@@ -1,3 +1,6 @@
+## 1.2.0
+* Added support for \[LIST] tags.
+
 ## 1.1.3
 * Fixed the strikethrough BBCode tag.
 

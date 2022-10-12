@@ -41,6 +41,7 @@ In order to make the package versatile as possible it's possible to define your 
 * [IMG=src] - Display an image from the internet.
 * [QUOTE=Marten] - Used to wrap text in a quote block.
 * [SPOILER=Name] - Used to create a clickable spoiler tag.
+* [LIST] / [LIST=1] - Used to create (ordered) lists. Note that items need to be of the form [*]item[/*]
 
 ### Creating your own tags
 You can create your own tags by either extending the `StyleTag`, `WrappedStyleTag` or `AdvancedTag` classes. The last one takes care of all BBCode it self. This can be useful in certain situations, but the `StyleTag` should be sufficient for most style changes.
