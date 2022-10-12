@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
         example_texts.flutterText,
         example_texts.flutterDevtools,
         example_texts.badBBCode,
+        example_texts.listBBCode,
       ]),
     );
   }

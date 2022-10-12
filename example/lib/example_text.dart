@@ -59,3 +59,20 @@ const String badBBCode = '''
 This example shows [color]what happens when parsing BBCode fails.
 It should not happen in general, but [b]tags can fail rendering[/b]. For example when an argument is not supplied.
 ''';
+
+const String listBBCode = '''
+Things to do when visiting the moon:
+[list]
+[*]Search for the flag[/*]
+[*]Jump really high (using a trampoline)![/*]
+[*]Ride in a moonbuggy[/*]
+[/list]
+
+Steps to make epic apps:
+[list=1]
+[*]Come up with an idea[/*]
+[*]Develop the app using [b][color=#32b9f6]Flutter[/color][/b][/*]
+[*]????[/*]
+[*]Profit[/*]
+[/list]
+''';
