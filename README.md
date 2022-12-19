@@ -1,4 +1,6 @@
 [![PubDev](https://img.shields.io/pub/v/flutter_bbcode?logo=flutter&logoColor=%235dc8f8&style=flat-square)](https://pub.dev/packages/flutter_bbcode)
+![Pub Popularity](https://img.shields.io/pub/popularity/flutter_bbcode?color=blue&label=Pub%20popularity&style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/MartenM/flutter_bbcode/flutter-test.yml?branch=main&style=flat-square)
 
 A simple display for BBCode in Flutter. Supports custom tags and styles.
 
