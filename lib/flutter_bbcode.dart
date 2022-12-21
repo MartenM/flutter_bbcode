@@ -28,8 +28,7 @@ Set<AbstractTag> allTags = {
   QuoteTag(),
   SpoilerTag(),
   ListTag(
-      ListItemStyle(
-          "%index%. ",
+      ListItemStyle("%index%. ",
           const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
       ListItemStyle(
           "● ",

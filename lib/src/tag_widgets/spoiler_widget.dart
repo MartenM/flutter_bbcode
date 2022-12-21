@@ -37,7 +37,7 @@ class _SpoilerDisplayState extends State<SpoilerDisplay> {
 
   Widget _content() {
     return Container(
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       width: double.infinity,
       decoration: BoxDecoration(
           border: Border.all(color: Colors.grey, width: 1),
