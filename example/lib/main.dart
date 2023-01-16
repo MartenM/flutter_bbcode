@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   static final styles = <HintedStyle>[
     HintedStyle(null, "Default style"),
     HintedStyle(
-        defaultBBStyle(
+        defaultBBStylesheet(
             textStyle: const TextStyle(color: Colors.blue, fontSize: 28)),
         "Default style with text style changed."
     ),
@@ -42,8 +42,8 @@ class MyApp extends StatelessWidget {
         "Empty style sheet"
     ),
     HintedStyle(
-        defaultBBStyle()
-            .addOrReplaceTag(HeaderTag(3, 6)),
+        defaultBBStylesheet()
+            .replaceTag(HeaderTag(3, 6)),
         "Default style, replaced H3 tag (smaller)."
     ),
     HintedStyle(

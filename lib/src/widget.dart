@@ -53,7 +53,7 @@ class BBCodeText extends StatelessWidget {
 
     // Parse the BBCode and catch an errors.
     List<InlineSpan> spans = parseBBCode(data,
-        style: stylesheet,
+        stylesheet: stylesheet,
         onError: (err, stack) {
           error = err;
           stackTrace = stack;
@@ -92,20 +92,20 @@ class BBCodeText extends StatelessWidget {
 
 /// Parses BBCode [InlineSpan] elements. These elements can then be used in a [RichText] widget.
 ///
-/// The [style] is used for parsing. If none is provided [defaultBBStyle] will be used instead.
+/// The [stylesheet] is used for parsing. If none is provided [defaultBBStylesheet] will be used instead.
 /// Additionally an [onError] method is available for advanced error handling.
 List<InlineSpan> parseBBCode(
     String data, {
-      BBStylesheet? style,
+      BBStylesheet? stylesheet,
       Function(Object error, StackTrace? stackTrace)? onError,
     }) {
   // Set default style
-  style ??= defaultBBStyle();
+  stylesheet ??= defaultBBStylesheet();
 
   // Use the parser to parse into nodes.
   bbob.ParseErrorMessage? errorObject;
   final nodes = bbob.parse(data,
-      validTags: style.validTags,
+      validTags: stylesheet.validTags,
       onError: (parseError) {
         errorObject = parseError;
       });
@@ -117,7 +117,7 @@ List<InlineSpan> parseBBCode(
 
   // Use the FlutterRenderer to convert the nodes into
   // InlineSpan widgets.
-  FlutterRenderer renderer = FlutterRenderer(stylesheet: style);
+  FlutterRenderer renderer = FlutterRenderer(stylesheet: stylesheet);
 
   late List<InlineSpan> spans;
   try {

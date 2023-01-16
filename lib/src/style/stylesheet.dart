@@ -27,18 +27,23 @@ class BBStylesheet {
   }
 
   /// Add a tag to this style.
-  /// Ensures no tag is replaced.
+  ///
+  /// Ensures no tag is replaced to avoid confusion.
   BBStylesheet addTag(AbstractTag tag) {
     if (_tags.containsKey(tag.tag)) {
-      throw Exception("Cannot add a tag that has already been added. Consider using 'replaceOrAddTag' instead.");
+      throw Exception("Cannot add a tag that has already been added. Consider using 'replaceTag' instead.");
     }
 
     _tags[tag.tag] = tag;
     return this;
   }
 
-  /// Replace or add a tag from this style.
-  BBStylesheet addOrReplaceTag(AbstractTag tag) {
+  /// Replace a tag from this style.
+  BBStylesheet replaceTag(AbstractTag tag) {
+    if (!_tags.containsKey(tag.tag)) {
+      throw Exception("Cannot replace a tag that wasn't added yet. Consider using 'addTag' instead.");
+    }
+
     _tags[tag.tag] = tag;
     return this;
   }
@@ -47,13 +52,17 @@ class BBStylesheet {
     return _tags[tag];
   }
 
+  void removeTag(String tag) {
+    _tags.remove(tag);
+  }
+
   /// Gets a list of all currently available tags.
   Set<String> get validTags => { ...tags.keys };
 }
 
 
 /// Returns the default BBCode style.
-BBStylesheet defaultBBStyle({
+BBStylesheet defaultBBStylesheet({
   TextStyle? textStyle
 }) =>
     BBStylesheet(

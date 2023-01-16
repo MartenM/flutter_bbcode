@@ -108,7 +108,7 @@ void main() {
     var emptySheet = BBStylesheet(tags: []);
 
     test("No style sheet", () {
-      List<InlineSpan> spans = parseBBCode("Some test data without stylesheet", style: emptySheet);
+      List<InlineSpan> spans = parseBBCode("Some test data without stylesheet", stylesheet: emptySheet);
       expect(spans.length, 1,
           reason: "Text should be parsed into 1 span of the same style.");
       expect(spans[0].toPlainText(), "Some test data without stylesheet",
@@ -116,7 +116,7 @@ void main() {
     });
 
     test("No style sheet", () {
-      List<InlineSpan> spans = parseBBCode("Some [b]test data[/b] without stylesheet", style: emptySheet);
+      List<InlineSpan> spans = parseBBCode("Some [b]test data[/b] without stylesheet", stylesheet: emptySheet);
       expect(spans.length, 1,
           reason: "Text should be parsed into 1 span of the same style.");
       expect(spans[0].toPlainText(), "Some [b]test data[/b] without stylesheet",
@@ -128,7 +128,7 @@ void main() {
     ]);
 
     test("Single tag sheet", () {
-      List<InlineSpan> spans = parseBBCode("Some [b]test data[/b] with boldSheet", style: boldSheet);
+      List<InlineSpan> spans = parseBBCode("Some [b]test data[/b] with boldSheet", stylesheet: boldSheet);
       expect(spans.length, 3,
           reason: "Text should be parsed into 1 span of the same style.");
       expect(spans[0].toPlainText(), "Some ",
@@ -168,7 +168,8 @@ void main() {
       var startTag = BoldTag();
       var replaceTag = BoldTag(weight: FontWeight.w500);
 
-      sheet.addOrReplaceTag(BoldTag());
+      expect(() => sheet.replaceTag(BoldTag()), throwsA(anything));
+      sheet.addTag(startTag);
 
       expect(sheet.tags.length, 1, reason: "Should contain one element");
       expect(sheet.validTags.length, 1, reason: "Should contain one element");
@@ -178,7 +179,7 @@ void main() {
       var returned = sheet.tags[startTag.tag] as BoldTag;
       expect(returned.weight, startTag.weight, reason: "Should have the same weight.");
 
-      sheet.addOrReplaceTag(replaceTag);
+      sheet.replaceTag(replaceTag);
       var returnedReplacement = sheet.tags[startTag.tag] as BoldTag;
       expect(returnedReplacement.weight, replaceTag.weight, reason: "Should have the same weight.");
     });
@@ -187,7 +188,7 @@ void main() {
       var textStyle = const TextStyle(fontSize: 48, color: Colors.grey);
       var styleSheet= BBStylesheet(tags: [], defaultText: textStyle);
 
-      List<InlineSpan> spans = parseBBCode("Some test data without bbcode", style: styleSheet);
+      List<InlineSpan> spans = parseBBCode("Some test data without bbcode", stylesheet: styleSheet);
       expect(spans[0].style, textStyle,
           reason: "Content should stay the same.");
     });
