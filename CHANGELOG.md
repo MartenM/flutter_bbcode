@@ -1,3 +1,6 @@
+## 1.3.0
+Notice: This is update is ONLY non-breaking if you didn't add new tags or changed the default text style. Please check the ReadMe on how to use the new BBStylesheet.
+
 * Changed the layout of the source to be in line with the guidelines on https://dart.dev/guides/libraries/create-library-packages
 * Added a BBStylesheet class that will hold all information related to style.
 
