@@ -1,12 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bbcode/flutter_renderer.dart';
-import 'package:flutter_bbcode/src/tag_widgets/quote_widget.dart';
-import 'package:flutter_bbcode/src/tag_widgets/spoiler_widget.dart';
-import 'package:flutter_bbcode/tags/tag_parser.dart';
-import 'package:flutter_bbcode/src/color_util.dart';
+import 'package:flutter_bbcode/src/parser/flutter_renderer.dart';
+import 'package:flutter_bbcode/src/default_tags/widgets/quote_widget.dart';
+import 'package:flutter_bbcode/src/util/color_util.dart';
 import 'package:bbob_dart/bbob_dart.dart' as bbob;
+
+import 'abstract_tags.dart';
+import 'widgets/spoiler_widget.dart';
 
 /// This file holds all basic tags that come with the project.
 /// These range from the bold, italic, underline to img tags.
@@ -196,7 +197,7 @@ class SpoilerTag extends WrappedStyleTag {
   List<InlineSpan> wrap(bbob.Element element, List<InlineSpan> spans) {
     late String text;
     if (element.attributes.isNotEmpty) {
-      text = "Spoiler: " + element.attributes.values.join(' ');
+      text = "Spoiler: ${element.attributes.values.join(' ')}";
     } else {
       text = "Spoiler";
     }

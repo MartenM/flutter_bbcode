@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 extension HexColor on Color {
+
+  // Source: https://stackoverflow.com/questions/50081213/how-do-i-use-hexadecimal-color-strings-in-flutter
+
   /// String is in the format "aabbcc" or "ffaabbcc" with an optional leading "#".
   static Color fromHex(String hexString) {
     final buffer = StringBuffer();

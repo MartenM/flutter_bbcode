@@ -1,6 +1,6 @@
 import 'package:bbob_dart/bbob_dart.dart' as bbob;
 import 'package:flutter/material.dart';
-import 'package:flutter_bbcode/flutter_renderer.dart';
+import 'package:flutter_bbcode/src/parser/flutter_renderer.dart';
 
 /// The base class for any BBCode tag.
 abstract class AbstractTag {

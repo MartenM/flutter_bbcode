@@ -4,8 +4,10 @@ import 'package:bbob_dart/bbob_dart.dart' as bbob;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bbcode/src/parsed_element.dart';
-import 'package:flutter_bbcode/tags/tag_parser.dart';
+
+import '../default_tags/abstract_tags.dart';
+import '../style/stylesheet.dart';
+import 'parsed_element.dart';
 
 /// An exception when rendering a tag results in an error.
 /// This is usually due to faulty implementations.
@@ -29,12 +31,10 @@ abstract class RenderData {}
 /// The flutter rendered walks through list of [bbob.Node]s.
 /// The output is a InlineSpan which can be used by the [RichText] widget.
 class FlutterRenderer extends bbob.NodeVisitor {
-  /// The map that has the tags to -> parser
-  /// The parsers modify the renderer.
-  final Map<String, AbstractTag> _parsers = {};
 
-  /// The default style. This will be the first style on the [_styleStack].
-  final TextStyle defaultStyle;
+  /// The style used for rendering this piece of BBCode text.
+  /// [BBStylesheet.defaultTextStyle] will be used as first text style on the [_styleStack]
+  final BBStylesheet stylesheet;
 
   /// The list of output spans that will be in the rich text widget.
   late List<InlineSpan> _output;
@@ -63,17 +63,15 @@ class FlutterRenderer extends bbob.NodeVisitor {
   /// String buffer to prevent creating lots of [InlineSpan] elements by grouping text together.
   final StringBuffer _textBuffer = StringBuffer();
 
-  FlutterRenderer(
-      {required this.defaultStyle, Set<AbstractTag> parsers = const {}}) {
-    for (var parser in parsers) {
-      _parsers[parser.tag] = parser;
-    }
-  }
+  FlutterRenderer({
+    required this.stylesheet
+  });
 
+  /// Render [bbob.Node]s using this [FlutterRender] instance.
   List<InlineSpan> render(List<bbob.Node> nodes) {
     _output = [];
     _styleStack.clear();
-    _styleStack.add(defaultStyle);
+    _styleStack.add(stylesheet.defaultTextStyle);
 
     for (var node in nodes) {
       node.accept(this);
@@ -96,13 +94,14 @@ class FlutterRenderer extends bbob.NodeVisitor {
     _currentTag = element;
 
     // Gets the corresponding BBCode tag parser.
-    AbstractTag? parser = _parsers[element.tag.toLowerCase()];
+    AbstractTag? parser = stylesheet.getTag(element.tag.toLowerCase());
     if (parser == null) return;
 
     parser.onTagEnd(this);
   }
 
   /// Called at the start of an element.
+  ///
   /// Return false if the children should be skipped. True if they should be visited.
   @override
   bool visitElementBefore(bbob.Element element) {
@@ -111,7 +110,7 @@ class FlutterRenderer extends bbob.NodeVisitor {
 
     _currentTag = element;
 
-    AbstractTag? parser = _parsers[element.tag];
+    AbstractTag? parser = stylesheet.getTag(element.tag.toLowerCase());
     if (parser == null) return true;
 
     try {

@@ -1,3 +1,6 @@
+* Changed the layout of the source to be in line with the guidelines on https://dart.dev/guides/libraries/create-library-packages
+* Added a BBStylesheet class that will hold all information related to style.
+
 ## 1.2.0
 * Added support for \[LIST] tags.
 

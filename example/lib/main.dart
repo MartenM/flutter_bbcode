@@ -6,8 +6,54 @@ void main() {
   runApp(const MyApp());
 }
 
+/// Wrapper class to wrap the style with an hint on what has been changed.
+class HintedStyle {
+  final BBStylesheet? style;
+  final String hint;
+
+  HintedStyle(this.style, this.hint);
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  static const inputs = <String>[
+    'This is a text without ANY bbcode',
+    'This text features [b]bold[/b] text.',
+    'This text [s]is epic[/s] combines features [u][b]bold underlined[/u][/b] text.',
+    'This text features [url=https://mstruijk.nl]a link[/url].',
+    example_texts.flutterPackages,
+    example_texts.flutterLogo,
+    example_texts.flutterText,
+    example_texts.flutterDevtools,
+    example_texts.badBBCode,
+    example_texts.listBBCode,
+  ];
+
+  static final styles = <HintedStyle>[
+    HintedStyle(null, "Default style"),
+    HintedStyle(
+        defaultBBStyle(
+            textStyle: const TextStyle(color: Colors.blue, fontSize: 28)),
+        "Default style with text style changed."
+    ),
+    HintedStyle(
+        BBStylesheet(tags: []),
+        "Empty style sheet"
+    ),
+    HintedStyle(
+        defaultBBStyle()
+            .addOrReplaceTag(HeaderTag(3, 6)),
+        "Default style, replaced H3 tag (smaller)."
+    ),
+    HintedStyle(
+        BBStylesheet(tags: [
+          BoldTag(),
+          ItalicTag(),
+        ]),
+        "Only Bold and Italic tags"
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -16,40 +62,50 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: "Example BBCode outputs", examples: [
-        'This is a text without ANY bbcode',
-        'This text features [b]bold[/b] text.',
-        'This text [s]is epic[/s] combines features [u][b]bold underlined[/u][/b] text.',
-        'This text features [url=https://mstruijk.nl]a link[/url].',
-        example_texts.flutterPackages,
-        example_texts.flutterLogo,
-        example_texts.flutterText,
-        example_texts.flutterDevtools,
-        example_texts.badBBCode,
-        example_texts.listBBCode,
-      ]),
+      home: MyHomePage(
+        title: "Example BBCode outputs",
+        examples: inputs,
+        styles: styles,
+      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title, required this.examples})
+  const MyHomePage({Key? key, required this.title, required this.examples, required this.styles})
       : super(key: key);
 
   final String title;
   final List<String> examples;
+  final List<HintedStyle?> styles;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _currentIndex = 0;
+  int _currentTextIndex = 0;
+  int _currentStyleIndex = 0;
+
+  String get _currentExampleText => widget.examples[_currentTextIndex];
+  HintedStyle get _currentHintedStyle => widget.styles[_currentStyleIndex]!;
 
   void _selectNextExample() {
     setState(() {
-      _currentIndex = (_currentIndex + 1) % widget.examples.length;
+      _currentTextIndex = (_currentTextIndex + 1) % widget.examples.length;
     });
+  }
+
+  void _selectNextStyle() {
+    setState(() {
+      _currentStyleIndex = (_currentStyleIndex + 1) % widget.styles.length;
+    });
+
+    var sm = ScaffoldMessenger.of(context);
+    sm.clearSnackBars();
+    sm.showSnackBar(SnackBar(
+        content: Text(_currentHintedStyle.hint),
+    ));
   }
 
   @override
@@ -67,7 +123,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           );
         },
-        data: widget.examples[_currentIndex]);
+        stylesheet: _currentHintedStyle.style,
+        data: _currentExampleText
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -77,10 +135,20 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.all(20),
         child: Center(child: parsedBBCode),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _selectNextExample,
-        tooltip: 'Refresh',
-        child: const Icon(Icons.refresh),
+      floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton.small(
+              onPressed: _selectNextExample,
+              tooltip: 'Next example text',
+              child: const Icon(Icons.navigate_next),
+            ),
+            FloatingActionButton.small(
+              onPressed: _selectNextStyle,
+              child: const Icon(Icons.draw),
+              tooltip: 'Next BBStylesheet',
+            )
+          ]
       ),
     );
   }
