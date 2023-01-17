@@ -23,6 +23,9 @@ dependencies:
   flutter_bbcode:
     path: ../
 
+  # Launcher to interact with other phone functions.
+  url_launcher: ^6.1.7
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

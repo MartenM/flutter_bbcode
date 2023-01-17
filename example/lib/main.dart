@@ -1,6 +1,7 @@
 import 'package:example/example_text.dart' as example_texts;
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode/flutter_bbcode.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,6 +31,18 @@ class MyApp extends StatelessWidget {
     example_texts.listBBCode,
   ];
 
+  // Helper method from https://pub.dev/packages/url_launcher
+  static Future<void> _launchUrl(Uri uri) async {
+    if (!await launchUrl(uri)) {
+      throw 'Could not launch $uri';
+    }
+  }
+
+  // Working URL tag
+  static final _implementedUrlTag = UrlTag(onTap: (url) {
+    _launchUrl(Uri.parse(url));
+  });
+
   static final styles = <HintedStyle>[
     HintedStyle(null, "Default style"),
     HintedStyle(
@@ -39,6 +52,8 @@ class MyApp extends StatelessWidget {
     HintedStyle(BBStylesheet(tags: []), "Empty style sheet"),
     HintedStyle(defaultBBStylesheet().replaceTag(HeaderTag(3, 6)),
         "Default style, replaced H3 tag (smaller)."),
+    HintedStyle(defaultBBStylesheet().replaceTag(_implementedUrlTag),
+        "Default style, replaced URL tag with working URL launcher."),
     HintedStyle(
         BBStylesheet(tags: [
           BoldTag(),
