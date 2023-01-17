@@ -4,6 +4,12 @@ import '../default_tags/basic_tags.dart';
 import '../default_tags/list_tag.dart';
 import '../default_tags/abstract_tags.dart';
 
+/// Thrown when illegal actions peformed on a [BBStyleSheet]
+class StylesheetException implements Exception {
+  String cause;
+  StylesheetException(this.cause);
+}
+
 /// A [BBStylesheet] contains all style related information required to render a text that contains BBCode including the parsers for tags.
 class BBStylesheet {
   final Map<String, AbstractTag> _tags = {};
@@ -27,7 +33,7 @@ class BBStylesheet {
   /// Ensures no tag is replaced to avoid confusion.
   BBStylesheet addTag(AbstractTag tag) {
     if (_tags.containsKey(tag.tag)) {
-      throw Exception(
+      throw StylesheetException(
           "Cannot add a tag that has already been added. Consider using 'replaceTag' instead.");
     }
 
@@ -36,9 +42,11 @@ class BBStylesheet {
   }
 
   /// Replace a tag from this style.
+  ///
+  /// Ensures the tag is actually replaced.
   BBStylesheet replaceTag(AbstractTag tag) {
     if (!_tags.containsKey(tag.tag)) {
-      throw Exception(
+      throw StylesheetException(
           "Cannot replace a tag that wasn't added yet. Consider using 'addTag' instead.");
     }
 
@@ -46,10 +54,12 @@ class BBStylesheet {
     return this;
   }
 
+  /// Returns the possible tag from the stylesheet.
   AbstractTag? getTag(String tag) {
     return _tags[tag];
   }
 
+  /// Removes a tag from this stylesheet.
   void removeTag(String tag) {
     _tags.remove(tag);
   }
