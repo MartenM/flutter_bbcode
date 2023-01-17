@@ -31,7 +31,6 @@ abstract class RenderData {}
 /// The flutter rendered walks through list of [bbob.Node]s.
 /// The output is a InlineSpan which can be used by the [RichText] widget.
 class FlutterRenderer extends bbob.NodeVisitor {
-
   /// The style used for rendering this piece of BBCode text.
   /// [BBStylesheet.defaultTextStyle] will be used as first text style on the [_styleStack]
   final BBStylesheet stylesheet;
@@ -63,9 +62,7 @@ class FlutterRenderer extends bbob.NodeVisitor {
   /// String buffer to prevent creating lots of [InlineSpan] elements by grouping text together.
   final StringBuffer _textBuffer = StringBuffer();
 
-  FlutterRenderer({
-    required this.stylesheet
-  });
+  FlutterRenderer({required this.stylesheet});
 
   /// Render [bbob.Node]s using this [FlutterRender] instance.
   List<InlineSpan> render(List<bbob.Node> nodes) {

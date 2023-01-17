@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../default_tags/basic_tags.dart';
@@ -7,7 +6,6 @@ import '../default_tags/abstract_tags.dart';
 
 /// A [BBStylesheet] contains all style related information required to render a text that contains BBCode including the parsers for tags.
 class BBStylesheet {
-
   final Map<String, AbstractTag> _tags = {};
   Map<String, AbstractTag> get tags => _tags;
 
@@ -15,11 +13,9 @@ class BBStylesheet {
 
   /// Constructor for a [BBStylesheet]. Requires at least a list
   /// of tags to be supplied.
-  BBStylesheet({
-    required Iterable<AbstractTag> tags,
-    TextStyle? defaultText
-  }) {
-    defaultTextStyle = defaultText ?? const TextStyle(color: Colors.black, fontSize: 14);
+  BBStylesheet({required Iterable<AbstractTag> tags, TextStyle? defaultText}) {
+    defaultTextStyle =
+        defaultText ?? const TextStyle(color: Colors.black, fontSize: 14);
 
     for (var parser in tags) {
       _tags[parser.tag] = parser;
@@ -31,7 +27,8 @@ class BBStylesheet {
   /// Ensures no tag is replaced to avoid confusion.
   BBStylesheet addTag(AbstractTag tag) {
     if (_tags.containsKey(tag.tag)) {
-      throw Exception("Cannot add a tag that has already been added. Consider using 'replaceTag' instead.");
+      throw Exception(
+          "Cannot add a tag that has already been added. Consider using 'replaceTag' instead.");
     }
 
     _tags[tag.tag] = tag;
@@ -41,7 +38,8 @@ class BBStylesheet {
   /// Replace a tag from this style.
   BBStylesheet replaceTag(AbstractTag tag) {
     if (!_tags.containsKey(tag.tag)) {
-      throw Exception("Cannot replace a tag that wasn't added yet. Consider using 'addTag' instead.");
+      throw Exception(
+          "Cannot replace a tag that wasn't added yet. Consider using 'addTag' instead.");
     }
 
     _tags[tag.tag] = tag;
@@ -57,17 +55,12 @@ class BBStylesheet {
   }
 
   /// Gets a list of all currently available tags.
-  Set<String> get validTags => { ...tags.keys };
+  Set<String> get validTags => {...tags.keys};
 }
 
-
 /// Returns the default BBCode style.
-BBStylesheet defaultBBStylesheet({
-  TextStyle? textStyle
-}) =>
-    BBStylesheet(
-        defaultText: textStyle,
-        tags: [
+BBStylesheet defaultBBStylesheet({TextStyle? textStyle}) =>
+    BBStylesheet(defaultText: textStyle, tags: [
       BoldTag(),
       ItalicTag(),
       UnderlineTag(),
@@ -85,8 +78,10 @@ BBStylesheet defaultBBStylesheet({
       QuoteTag(),
       SpoilerTag(),
       ListTag(
-          ListItemStyle("%index%. ",
-              const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+          ListItemStyle(
+              "%index%. ",
+              const TextStyle(
+                  color: Colors.black, fontWeight: FontWeight.bold)),
           ListItemStyle(
               "● ",
               const TextStyle(

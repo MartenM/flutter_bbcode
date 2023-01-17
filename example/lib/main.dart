@@ -35,24 +35,16 @@ class MyApp extends StatelessWidget {
     HintedStyle(
         defaultBBStylesheet(
             textStyle: const TextStyle(color: Colors.blue, fontSize: 28)),
-        "Default style with text style changed."
-    ),
-    HintedStyle(
-        BBStylesheet(tags: []),
-        "Empty style sheet"
-    ),
-    HintedStyle(
-        defaultBBStylesheet()
-            .replaceTag(HeaderTag(3, 6)),
-        "Default style, replaced H3 tag (smaller)."
-    ),
+        "Default style with text style changed."),
+    HintedStyle(BBStylesheet(tags: []), "Empty style sheet"),
+    HintedStyle(defaultBBStylesheet().replaceTag(HeaderTag(3, 6)),
+        "Default style, replaced H3 tag (smaller)."),
     HintedStyle(
         BBStylesheet(tags: [
           BoldTag(),
           ItalicTag(),
         ]),
-        "Only Bold and Italic tags"
-    ),
+        "Only Bold and Italic tags"),
   ];
 
   @override
@@ -72,7 +64,11 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title, required this.examples, required this.styles})
+  const MyHomePage(
+      {Key? key,
+      required this.title,
+      required this.examples,
+      required this.styles})
       : super(key: key);
 
   final String title;
@@ -104,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var sm = ScaffoldMessenger.of(context);
     sm.clearSnackBars();
     sm.showSnackBar(SnackBar(
-        content: Text(_currentHintedStyle.hint),
+      content: Text(_currentHintedStyle.hint),
     ));
   }
 
@@ -124,8 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         },
         stylesheet: _currentHintedStyle.style,
-        data: _currentExampleText
-    );
+        data: _currentExampleText);
 
     return Scaffold(
       appBar: AppBar(
@@ -135,21 +130,19 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.all(20),
         child: Center(child: parsedBBCode),
       ),
-      floatingActionButton: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton.small(
-              onPressed: _selectNextExample,
-              tooltip: 'Next example text',
-              child: const Icon(Icons.navigate_next),
-            ),
-            FloatingActionButton.small(
-              onPressed: _selectNextStyle,
-              child: const Icon(Icons.draw),
-              tooltip: 'Next BBStylesheet',
-            )
-          ]
-      ),
+      floatingActionButton:
+          Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+        FloatingActionButton.small(
+          onPressed: _selectNextExample,
+          tooltip: 'Next example text',
+          child: const Icon(Icons.navigate_next),
+        ),
+        FloatingActionButton.small(
+          onPressed: _selectNextStyle,
+          child: const Icon(Icons.draw),
+          tooltip: 'Next BBStylesheet',
+        )
+      ]),
     );
   }
 }

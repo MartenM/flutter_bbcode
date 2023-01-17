@@ -64,39 +64,38 @@ void main() {
     });
 
     test("Default style applied - no bbcode", () {
-      List<InlineSpan> spans =
-          parseBBCode("Some text without BBCode");
+      List<InlineSpan> spans = parseBBCode("Some text without BBCode");
       expect(spans[0].style, defaultStyle,
           reason: "This whole block should be of the same style.");
     });
 
     test("Default style applied - bbcode gap", () {
-      List<InlineSpan> spans = parseBBCode(
-          "Some people [b]should[/b] go and work.");
+      List<InlineSpan> spans =
+          parseBBCode("Some people [b]should[/b] go and work.");
       expect(spans.length, 3, reason: "Span length should be 3");
       expect(spans[2].style, defaultStyle,
           reason: "This whole block [b]should[/b] be of the same style.");
     });
 
     test("Wrapped style tag (Quote test)", () {
-      List<InlineSpan> spans = parseBBCode(
-          "Test. [quote]Hey you![/quote] okay?");
+      List<InlineSpan> spans =
+          parseBBCode("Test. [quote]Hey you![/quote] okay?");
       expect(spans.length, 3,
           reason: "Quote is seen as one span. Output: ${spans.toString()}");
       expect(spans[1] is WidgetSpan, true);
     });
 
     test("Wrapped style tag (Quote test - bold)", () {
-      List<InlineSpan> spans = parseBBCode(
-          "Test. [quote]Hey [b]you![/b][/quote] okay?");
+      List<InlineSpan> spans =
+          parseBBCode("Test. [quote]Hey [b]you![/b][/quote] okay?");
       expect(spans.length, 3,
           reason: "Quote is seen as one span. Output: ${spans.toString()}");
       expect(spans[1] is WidgetSpan, true);
     });
 
     test("Wrapped style tag (Quote test - quote in quote)", () {
-      List<InlineSpan> spans = parseBBCode(
-          "[quote][quote]Hello[/quote][/quote]");
+      List<InlineSpan> spans =
+          parseBBCode("[quote][quote]Hello[/quote][/quote]");
       expect(spans.length, 1,
           reason: "Quote is seen as one span. Output: ${spans.toString()}");
       expect(spans[0] is WidgetSpan, true);
@@ -104,11 +103,11 @@ void main() {
   });
 
   group("Flutter parseBBCode stylesheet", () {
-
     var emptySheet = BBStylesheet(tags: []);
 
     test("No style sheet", () {
-      List<InlineSpan> spans = parseBBCode("Some test data without stylesheet", stylesheet: emptySheet);
+      List<InlineSpan> spans = parseBBCode("Some test data without stylesheet",
+          stylesheet: emptySheet);
       expect(spans.length, 1,
           reason: "Text should be parsed into 1 span of the same style.");
       expect(spans[0].toPlainText(), "Some test data without stylesheet",
@@ -116,32 +115,30 @@ void main() {
     });
 
     test("No style sheet", () {
-      List<InlineSpan> spans = parseBBCode("Some [b]test data[/b] without stylesheet", stylesheet: emptySheet);
+      List<InlineSpan> spans = parseBBCode(
+          "Some [b]test data[/b] without stylesheet",
+          stylesheet: emptySheet);
       expect(spans.length, 1,
           reason: "Text should be parsed into 1 span of the same style.");
       expect(spans[0].toPlainText(), "Some [b]test data[/b] without stylesheet",
           reason: "Should not parse any tags and keep them as is.");
     });
 
-    var boldSheet = BBStylesheet(tags: [
-      BoldTag()
-    ]);
+    var boldSheet = BBStylesheet(tags: [BoldTag()]);
 
     test("Single tag sheet", () {
-      List<InlineSpan> spans = parseBBCode("Some [b]test data[/b] with boldSheet", stylesheet: boldSheet);
+      List<InlineSpan> spans = parseBBCode(
+          "Some [b]test data[/b] with boldSheet",
+          stylesheet: boldSheet);
       expect(spans.length, 3,
           reason: "Text should be parsed into 1 span of the same style.");
-      expect(spans[0].toPlainText(), "Some ",
-          reason: "Content.");
-      expect(spans[1].toPlainText(), "test data",
-          reason: "Content.");
-      expect(spans[2].toPlainText(), " with boldSheet",
-          reason: "Content.");
+      expect(spans[0].toPlainText(), "Some ", reason: "Content.");
+      expect(spans[1].toPlainText(), "test data", reason: "Content.");
+      expect(spans[2].toPlainText(), " with boldSheet", reason: "Content.");
     });
   });
 
   group("BBStylesheet", () {
-
     test("Creation", () {
       var sheet = BBStylesheet(tags: []);
 
@@ -157,7 +154,8 @@ void main() {
 
       expect(sheet.tags.length, 1, reason: "Should contain one element");
       expect(sheet.validTags.length, 1, reason: "Should contain one element");
-      expect(sheet.validTags.contains(tag.tag), true, reason: "Should return the B tag");
+      expect(sheet.validTags.contains(tag.tag), true,
+          reason: "Should return the B tag");
 
       expect(() => sheet.addTag(tag), throwsA(anything));
     });
@@ -173,22 +171,26 @@ void main() {
 
       expect(sheet.tags.length, 1, reason: "Should contain one element");
       expect(sheet.validTags.length, 1, reason: "Should contain one element");
-      expect(sheet.validTags.contains(startTag.tag), true, reason: "Should return the B tag");
+      expect(sheet.validTags.contains(startTag.tag), true,
+          reason: "Should return the B tag");
 
       // Check if this is actually the same tag
       var returned = sheet.tags[startTag.tag] as BoldTag;
-      expect(returned.weight, startTag.weight, reason: "Should have the same weight.");
+      expect(returned.weight, startTag.weight,
+          reason: "Should have the same weight.");
 
       sheet.replaceTag(replaceTag);
       var returnedReplacement = sheet.tags[startTag.tag] as BoldTag;
-      expect(returnedReplacement.weight, replaceTag.weight, reason: "Should have the same weight.");
+      expect(returnedReplacement.weight, replaceTag.weight,
+          reason: "Should have the same weight.");
     });
 
     test("Default text style test", () {
       var textStyle = const TextStyle(fontSize: 48, color: Colors.grey);
-      var styleSheet= BBStylesheet(tags: [], defaultText: textStyle);
+      var styleSheet = BBStylesheet(tags: [], defaultText: textStyle);
 
-      List<InlineSpan> spans = parseBBCode("Some test data without bbcode", stylesheet: styleSheet);
+      List<InlineSpan> spans =
+          parseBBCode("Some test data without bbcode", stylesheet: styleSheet);
       expect(spans[0].style, textStyle,
           reason: "Content should stay the same.");
     });

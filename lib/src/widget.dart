@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:bbob_dart/bbob_dart.dart' as bbob;
@@ -7,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import 'parser/flutter_renderer.dart';
 import 'style/stylesheet.dart';
-
 
 /// Signature used by [BBCodeText.errorBuilder] to create a replacement when BBCode could not be parsed correctly.
 typedef BBCodeErrorWidgetBuilder = Widget Function(
@@ -39,10 +37,10 @@ class BBCodeText extends StatelessWidget {
   /// want to get the subset of [_allTags] and additionally overwrite some like [UrlTag] to fit with the style scheme.
   const BBCodeText(
       {Key? key,
-        required this.data,
-        this.selectable = false,
-        this.stylesheet,
-        this.errorBuilder})
+      required this.data,
+      this.selectable = false,
+      this.stylesheet,
+      this.errorBuilder})
       : super(key: key);
 
   @override
@@ -52,13 +50,11 @@ class BBCodeText extends StatelessWidget {
     StackTrace? stackTrace;
 
     // Parse the BBCode and catch an errors.
-    List<InlineSpan> spans = parseBBCode(data,
-        stylesheet: stylesheet,
-        onError: (err, stack) {
-          error = err;
-          stackTrace = stack;
-        }
-    );
+    List<InlineSpan> spans =
+        parseBBCode(data, stylesheet: stylesheet, onError: (err, stack) {
+      error = err;
+      stackTrace = stack;
+    });
 
     // Handle any potential errors.
     if (error != null) {
@@ -70,7 +66,7 @@ class BBCodeText extends StatelessWidget {
         if (errorBuilder == null) {
           return ErrorWidget.withDetails(
               message:
-              "An error occurred while attempting to parse the BBCode.\n${error.toString()}"
+                  "An error occurred while attempting to parse the BBCode.\n${error.toString()}"
                   "\n\n"
                   "No error builder was provided.");
         }
@@ -95,20 +91,19 @@ class BBCodeText extends StatelessWidget {
 /// The [stylesheet] is used for parsing. If none is provided [defaultBBStylesheet] will be used instead.
 /// Additionally an [onError] method is available for advanced error handling.
 List<InlineSpan> parseBBCode(
-    String data, {
-      BBStylesheet? stylesheet,
-      Function(Object error, StackTrace? stackTrace)? onError,
-    }) {
+  String data, {
+  BBStylesheet? stylesheet,
+  Function(Object error, StackTrace? stackTrace)? onError,
+}) {
   // Set default style
   stylesheet ??= defaultBBStylesheet();
 
   // Use the parser to parse into nodes.
   bbob.ParseErrorMessage? errorObject;
-  final nodes = bbob.parse(data,
-      validTags: stylesheet.validTags,
-      onError: (parseError) {
-        errorObject = parseError;
-      });
+  final nodes =
+      bbob.parse(data, validTags: stylesheet.validTags, onError: (parseError) {
+    errorObject = parseError;
+  });
 
   if (errorObject != null) {
     onError?.call(errorObject!, StackTrace.current);

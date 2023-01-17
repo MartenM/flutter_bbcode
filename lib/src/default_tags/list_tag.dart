@@ -4,7 +4,6 @@ import 'package:bbob_dart/bbob_dart.dart' as bbob;
 import '../../flutter_bbcode.dart';
 import 'abstract_tags.dart';
 
-
 /// The style of the list. This is used by the list items to generate the correct style
 enum ListType { ordered, unordered }
 
