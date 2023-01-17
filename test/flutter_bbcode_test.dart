@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode/flutter_bbcode.dart';
-import 'package:flutter_bbcode/src/default_tags/basic_tags.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
