@@ -101,7 +101,7 @@ void main() {
     });
   });
 
-  group("Flutter parseBBCode stylesheet", () {
+  group("Flutter parseBBCode with BBStylesheet", () {
     var emptySheet = BBStylesheet(tags: []);
 
     test("No style sheet", () {
