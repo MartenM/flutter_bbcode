@@ -58,7 +58,7 @@ The `WrappedStyleTag` can be used to wrap a style around the tag. An example of 
 * [S] - Strikethrough text
 * [COLOR=#HEX] - Coloured text based on HEX
 * [H1] - Header text, supported up till [H6]
-* [URL=https://google.com] - Supported with or without text. Can also be used to surrouned an URL to make it clickable. Default action is a log message. Opening a webbrowser or any other actions need to be implemented by the developer.
+* [URL=https://google.com] - Supported with or without text. Can also be used to surround an URL to make it clickable. Default action is a log message. Example using `url_launcher` can be found in the example.
 * [IMG=src] - Display an image from the internet.
 * [QUOTE=Marten] - Used to wrap text in a quote block.
 * [SPOILER=Name] - Used to create a clickable spoiler tag.
