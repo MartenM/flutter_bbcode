@@ -165,7 +165,8 @@ void main() {
       var startTag = BoldTag();
       var replaceTag = BoldTag(weight: FontWeight.w500);
 
-      expect(() => sheet.replaceTag(BoldTag()), throwsA(isA<StylesheetException>()));
+      expect(() => sheet.replaceTag(BoldTag()),
+          throwsA(isA<StylesheetException>()));
       sheet.addTag(startTag);
 
       expect(sheet.tags.length, 1, reason: "Should contain one element");
