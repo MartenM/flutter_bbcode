@@ -4,7 +4,7 @@ import '../default_tags/basic_tags.dart';
 import '../default_tags/list_tag.dart';
 import '../default_tags/abstract_tags.dart';
 
-/// Thrown when illegal actions peformed on a [BBStyleSheet]
+/// Thrown when illegal actions performed on a [BBStyleSheet]
 class StylesheetException implements Exception {
   String cause;
   StylesheetException(this.cause);
