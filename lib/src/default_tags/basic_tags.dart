@@ -213,25 +213,21 @@ class SpoilerTag extends WrappedStyleTag {
 }
 
 class LeftAlignTag extends WrappedStyleTag {
-
   LeftAlignTag() : super("left");
 
   @override
   List<InlineSpan> wrap(bbob.Element element, List<InlineSpan> spans) {
-
     return [
       WidgetSpan(
           child: SizedBox(
               width: double.infinity,
-              child: RichText(text: TextSpan(children: spans), textAlign: TextAlign.left)
-          )
-      )
+              child: RichText(
+                  text: TextSpan(children: spans), textAlign: TextAlign.left)))
     ];
   }
 }
 
 class CenterAlignTag extends WrappedStyleTag {
-
   CenterAlignTag() : super("center");
 
   @override
@@ -240,27 +236,24 @@ class CenterAlignTag extends WrappedStyleTag {
       WidgetSpan(
           child: SizedBox(
               width: double.infinity,
-              child: RichText(text: TextSpan(children: spans), textAlign: TextAlign.center)
-          )
-      )
+              child: RichText(
+                  text: TextSpan(children: spans),
+                  textAlign: TextAlign.center)))
     ];
   }
 }
 
 class RightAlignTag extends WrappedStyleTag {
-
   RightAlignTag() : super("right");
 
   @override
   List<InlineSpan> wrap(bbob.Element element, List<InlineSpan> spans) {
-
     return [
       WidgetSpan(
           child: SizedBox(
               width: double.infinity,
-              child: RichText(text: TextSpan(children: spans), textAlign: TextAlign.right)
-          )
-      )
+              child: RichText(
+                  text: TextSpan(children: spans), textAlign: TextAlign.right)))
     ];
   }
 }
