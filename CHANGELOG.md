@@ -1,3 +1,6 @@
+## 1.4.0
+* Added \[LEFT], \[CENTER] and \[RIGHT] tags.
+
 ## 1.3.0
 > **Notice:** This is update a breaking update if you added new tags or changed the default text style.
 > Please check the ReadMe on how to use the new BBStylesheet.

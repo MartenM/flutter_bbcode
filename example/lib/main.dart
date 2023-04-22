@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
     example_texts.flutterDevtools,
     example_texts.badBBCode,
     example_texts.listBBCode,
+    example_texts.alignBBCode,
   ];
 
   // Helper method from https://pub.dev/packages/url_launcher
