@@ -68,3 +68,5 @@ The `WrappedStyleTag` can be used to wrap a style around the tag. An example of 
 
 ### Contribute to the project
 Feel free to create issues and pull-requests on Github. I will take a look at them as soon as possible.
+
+Leaving a star there is also highly appreciated :)
