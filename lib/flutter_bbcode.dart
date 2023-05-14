@@ -11,5 +11,4 @@ export 'src/style/stylesheet.dart';
 // Tags
 export 'src/default_tags/basic_tags.dart';
 export 'src/default_tags/list_tag.dart';
-export 'src/default_tags/basic_tags.dart';
 export 'src/default_tags/abstract_tags.dart';
