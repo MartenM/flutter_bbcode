@@ -25,4 +25,4 @@ jobs:
           channel: 'stable'
         
       - name: Flutter Format Check
-        run: flutter format --set-exit-if-changed $GITHUB_WORKSPACE
+        run: dart format --set-exit-if-changed $GITHUB_WORKSPACE

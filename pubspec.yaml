@@ -14,9 +14,9 @@ dependencies:
     sdk: flutter
 
   # Parser for BBCode - Updated for NULL-Safety
-  bbob_dart: ^0.2.0-dev.1
+  bbob_dart: ^0.2.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ">=1.0.0 <3.0.0"
+  lints: ^2.1.0

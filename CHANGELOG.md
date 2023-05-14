@@ -1,3 +1,7 @@
+## 1.4.1
+* Improved accessibility. Text now scales according the TextScaleFactor defined in the accessibility menu.
+* Bumped bbob_dart to 2.0.1 (Non pre-release version)
+
 ## 1.4.0
 * Added \[LEFT], \[CENTER] and \[RIGHT] tags.
 
