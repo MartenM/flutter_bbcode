@@ -21,8 +21,8 @@ class ListRenderData extends RenderData {
   ListType listType;
   int index = 0;
 
-  ListItemStyle orderedListStyle;
-  ListItemStyle unorderedListStyle;
+  ListItemStyle? orderedListStyle;
+  ListItemStyle? unorderedListStyle;
 
   ListRenderData(
       {required this.listType,
@@ -38,6 +38,8 @@ class ListItem extends AbstractTag {
   void onTagStart(FlutterRenderer renderer) {
     ListRenderData data = renderer.getRenderData() as ListRenderData;
 
+    // Get the correct style based on the List type.
+    // The other style might not be present.
     var style = data.listType == ListType.ordered
         ? data.orderedListStyle
         : data.unorderedListStyle;
@@ -48,14 +50,40 @@ class ListItem extends AbstractTag {
 
     // Append the prefix
     renderer.appendTextSpan(TextSpan(
-        text: style.prefix.replaceAll("%index%", data.index.toString()),
+        text: style!.prefix.replaceAll("%index%", data.index.toString()),
         style: style.prefixStyle));
+  }
+}
+
+/// Base class for the List tags.
+/// Since both ordered and unordered list share some functionality in terms of rendering.
+abstract class AbstractListTag extends WrappedStyleTag {
+  AbstractListTag(String tag) : super(tag);
+
+  @override
+  void onTagEnd(FlutterRenderer renderer) {
+    super.onTagEnd(renderer);
+    renderer.endRenderData();
+  }
+
+  @override
+  List<InlineSpan> wrap(bbob.Element element, List<InlineSpan> spans) {
+    // Remove accidental \n at the start and end.
+    if (spans.first.toPlainText() == "\n") spans.removeAt(0);
+    if (spans.last.toPlainText() == "\n") spans.removeLast();
+
+    return [
+      WidgetSpan(
+          child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
+              child: RichText(text: TextSpan(children: spans))))
+    ];
   }
 }
 
 /// Represents BBCode list.
 /// Requires both styles for ordered and unordered lists.
-class ListTag extends WrappedStyleTag {
+class ListTag extends AbstractListTag {
   ListItemStyle orderedStyle;
   ListItemStyle unorderedStyle;
 
@@ -80,24 +108,42 @@ class ListTag extends WrappedStyleTag {
       unorderedListStyle: unorderedStyle,
     ));
   }
+}
+
+/// Represents the ordered list tag.
+class OrderedList extends AbstractListTag {
+  ListItemStyle orderedStyle;
+
+  OrderedList(this.orderedStyle) : super("ol");
 
   @override
-  void onTagEnd(FlutterRenderer renderer) {
-    super.onTagEnd(renderer);
-    renderer.endRenderData();
+  void onTagStart(FlutterRenderer renderer) {
+    super.onTagStart(renderer);
+
+    // Insert render data to be used by child nodes.
+    renderer.startRenderData(ListRenderData(
+      listType: ListType.ordered,
+      orderedListStyle: orderedStyle,
+      unorderedListStyle: null,
+    ));
   }
+}
+
+/// Represents the unordered list tag.
+class UnorderedList extends AbstractListTag {
+  ListItemStyle unorderedStyle;
+
+  UnorderedList(this.unorderedStyle) : super("ul");
 
   @override
-  List<InlineSpan> wrap(bbob.Element element, List<InlineSpan> spans) {
-    // Remove accidental \n at the start and end.
-    if (spans.first.toPlainText() == "\n") spans.removeAt(0);
-    if (spans.last.toPlainText() == "\n") spans.removeLast();
+  void onTagStart(FlutterRenderer renderer) {
+    super.onTagStart(renderer);
 
-    return [
-      WidgetSpan(
-          child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
-              child: RichText(text: TextSpan(children: spans))))
-    ];
+    // Insert render data to be used by child nodes.
+    renderer.startRenderData(ListRenderData(
+      listType: ListType.unordered,
+      orderedListStyle: null,
+      unorderedListStyle: unorderedStyle,
+    ));
   }
 }

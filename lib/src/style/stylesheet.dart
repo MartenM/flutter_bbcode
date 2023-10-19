@@ -99,5 +99,11 @@ BBStylesheet defaultBBStylesheet({TextStyle? textStyle}) =>
               "● ",
               const TextStyle(
                   fontWeight: FontWeight.bold, color: Colors.blueAccent))),
+      OrderedList(ListItemStyle("%index%. ",
+          const TextStyle(color: Colors.black, fontWeight: FontWeight.bold))),
+      UnorderedList(ListItemStyle(
+          "● ",
+          const TextStyle(
+              fontWeight: FontWeight.bold, color: Colors.blueAccent))),
       ListItem()
     ]);

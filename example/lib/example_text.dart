@@ -82,3 +82,19 @@ const String alignBBCode = '''
 BBCode (Bulletin Board Code) is a lightweight markup language used to format and stylize content in online forums, bulletin boards, and message boards. It is a simple and easy-to-use syntax that allows users to add formatting and other features to their posts without requiring knowledge of HTML or other advanced coding languages.
 [right][i]~ ChatGPT[/i][/right]
 ''';
+
+const String simpleListsTags = '''
+Reason why Flutter is awesome
+[ul]
+[*]Single codebase for all platforms[/*]
+[*]Reduced Development Time[/*]
+[*]Increased Time-to-Market Speed[/*]
+[/ul]
+
+Top 3 programming languages:
+[ol]
+[*]Dart[/*]
+[*]Java[/*]
+[*]C#[/*]
+[/ol]
+''';

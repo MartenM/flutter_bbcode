@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
     example_texts.badBBCode,
     example_texts.listBBCode,
     example_texts.alignBBCode,
+    example_texts.simpleListsTags,
   ];
 
   // Helper method from https://pub.dev/packages/url_launcher
