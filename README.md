@@ -62,7 +62,7 @@ The `WrappedStyleTag` can be used to wrap a style around the tag. An example of 
 * [IMG=src] - Display an image from the internet.
 * [QUOTE=Marten] - Used to wrap text in a quote block.
 * [SPOILER=Name] - Used to create a clickable spoiler tag.
-* [LIST] / [LIST=1] - Used to create (ordered) lists. Note that items need to be of the form [\*]item[/\*]
+* [LIST] / [LIST=1] / [UL] / [OL] - Used to create (ordered) lists. Note that items need to be of the form [\*]item[/\*]
 * [LEFT], [CENTER], [RIGHT] - Align the text
 
 
