@@ -1,6 +1,6 @@
 name: flutter_bbcode
 description: A package to display BBCode text in Flutter apps. Manage your own tags or use those of others.
-version: 1.4.1
+version: 1.4.2
 repository: https://github.com/MartenM/flutter_bbcode
 issue_tracker: https://github.com/MartenM/flutter_bbcode/issues
 
