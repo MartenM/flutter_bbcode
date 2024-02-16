@@ -84,10 +84,10 @@ class BBCodeText extends StatelessWidget {
     }
 
     // Improve accessibility, scale text with textScaleFactor.
-    var textScaleFactor = MediaQuery.of(context).textScaleFactor;
+    var textScaler = MediaQuery.of(context).textScaler;
 
     return RichText(
-        text: TextSpan(children: spans), textScaleFactor: textScaleFactor);
+        text: TextSpan(children: spans), textScaler: textScaler);
   }
 }
 
