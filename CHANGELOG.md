@@ -1,3 +1,11 @@
+## 1.5.0
+* 'Selectable' is now part of the Stylesheet.
+* Fixed accessibility issues for future flutter releases.
+* Fixed an accessibility issue for selectable text.
+* Text in quotes can now be selected.
+* Fixed a minor issue in the example texts
+* Bumped flutter lints to 3.0.0
+
 ## 1.4.2
 * Added \[UL] and \[OL] list tags. 
 
