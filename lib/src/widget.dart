@@ -74,13 +74,12 @@ class BBCodeText extends StatelessWidget {
       return errorBuilder!(context, error!, stackTrace);
     }
 
-    if (stylesheet?.selectableText ?? false) {
-      return SelectableText.rich(TextSpan(children: spans));
-    }
-
     // Improve accessibility, scale text with textScaleFactor.
     var textScaler = MediaQuery.of(context).textScaler;
 
+    if (stylesheet?.selectableText ?? false) {
+      return SelectableText.rich(TextSpan(children: spans), textScaler: textScaler);
+    }
     return RichText(
         text: TextSpan(children: spans), textScaler: textScaler);
   }
