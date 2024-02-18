@@ -16,9 +16,6 @@ class BBCodeText extends StatelessWidget {
   /// The data to be rendered. Usually a text that contains BBCode tags.
   final String data;
 
-  /// If the text should be selectable or not.
-  final bool selectable;
-
   /// Contains all relevant style information for parsing the BBCode.
   final BBStylesheet? stylesheet;
 
@@ -32,13 +29,11 @@ class BBCodeText extends StatelessWidget {
   /// Main constructor
   ///
   /// The [data] should be a string of BBCode text. This text can contain line breaks.
-  /// Use [selectable] to make the text selectable by the user.
   /// The [tagParsers] are the parsers for the tags. When left empty, all available tag parsers will be used. One might
   /// want to get the subset of [_allTags] and additionally overwrite some like [UrlTag] to fit with the style scheme.
   const BBCodeText(
       {Key? key,
       required this.data,
-      this.selectable = false,
       this.stylesheet,
       this.errorBuilder})
       : super(key: key);
@@ -79,7 +74,7 @@ class BBCodeText extends StatelessWidget {
       return errorBuilder!(context, error!, stackTrace);
     }
 
-    if (selectable) {
+    if (stylesheet?.selectableText ?? false) {
       return SelectableText.rich(TextSpan(children: spans));
     }
 

@@ -16,10 +16,11 @@ class BBStylesheet {
   Map<String, AbstractTag> get tags => _tags;
 
   late final TextStyle defaultTextStyle;
+  final bool selectableText;
 
   /// Constructor for a [BBStylesheet]. Requires at least a list
   /// of tags to be supplied.
-  BBStylesheet({required Iterable<AbstractTag> tags, TextStyle? defaultText}) {
+  BBStylesheet({required Iterable<AbstractTag> tags, TextStyle? defaultText, this.selectableText = false}) {
     defaultTextStyle =
         defaultText ?? const TextStyle(color: Colors.black, fontSize: 14);
 
