@@ -20,9 +20,12 @@ class BBStylesheet {
 
   /// Constructor for a [BBStylesheet]. Requires at least a list
   /// of tags to be supplied.
-  BBStylesheet({required Iterable<AbstractTag> tags, TextStyle? defaultText, this.selectableText = false}) {
-    defaultTextStyle =
-        defaultText ?? const TextStyle(color: Colors.black, fontSize: 14, height: 1);
+  BBStylesheet(
+      {required Iterable<AbstractTag> tags,
+      TextStyle? defaultText,
+      this.selectableText = false}) {
+    defaultTextStyle = defaultText ??
+        const TextStyle(color: Colors.black, fontSize: 14, height: 1);
 
     for (var parser in tags) {
       _tags[parser.tag] = parser;

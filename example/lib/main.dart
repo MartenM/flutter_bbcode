@@ -49,7 +49,8 @@ class MyApp extends StatelessWidget {
     HintedStyle(defaultBBStylesheet(), "Default style"),
     HintedStyle(
         defaultBBStylesheet(
-            textStyle: const TextStyle(color: Colors.blue, fontSize: 28, height: 1)),
+            textStyle:
+                const TextStyle(color: Colors.blue, fontSize: 28, height: 1)),
         "Default style with text style changed."),
     HintedStyle(BBStylesheet(tags: []), "Empty style sheet"),
     HintedStyle(defaultBBStylesheet().replaceTag(HeaderTag(3, 6)),
@@ -167,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Center(child: parsedBBCode),
       ),
       floatingActionButton:
-      Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         FloatingActionButton.small(
           onPressed: _selectNextExample,
           tooltip: 'Next example text',

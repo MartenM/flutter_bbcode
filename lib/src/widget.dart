@@ -32,10 +32,7 @@ class BBCodeText extends StatelessWidget {
   /// The [tagParsers] are the parsers for the tags. When left empty, all available tag parsers will be used. One might
   /// want to get the subset of [_allTags] and additionally overwrite some like [UrlTag] to fit with the style scheme.
   const BBCodeText(
-      {Key? key,
-      required this.data,
-      this.stylesheet,
-      this.errorBuilder})
+      {Key? key, required this.data, this.stylesheet, this.errorBuilder})
       : super(key: key);
 
   @override
@@ -79,12 +76,13 @@ class BBCodeText extends StatelessWidget {
 
     if (stylesheet?.selectableText ?? false) {
       return SelectableText.rich(
-          TextSpan(children: spans, style: stylesheet?.defaultTextStyle),
-          textScaler: textScaler,
+        TextSpan(children: spans, style: stylesheet?.defaultTextStyle),
+        textScaler: textScaler,
       );
     }
     return RichText(
-        text: TextSpan(children: spans, style: stylesheet?.defaultTextStyle), textScaler: textScaler);
+        text: TextSpan(children: spans, style: stylesheet?.defaultTextStyle),
+        textScaler: textScaler);
   }
 }
 

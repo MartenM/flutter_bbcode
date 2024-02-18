@@ -25,18 +25,12 @@ void main() {
       var newStyle = TextStyle(fontSize: 999);
 
       var initial = defaultBBStylesheet();
-      var copy = initial.copyWith(
-        defaultTextStyle: newStyle,
-        selectableText: true
-      );
+      var copy =
+          initial.copyWith(defaultTextStyle: newStyle, selectableText: true);
 
       expect(initial.tags, copy.tags);
       expect(copy.defaultTextStyle, newStyle);
       expect(copy.selectableText, true);
     });
-
-
   });
-
-
 }
