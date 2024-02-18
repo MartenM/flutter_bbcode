@@ -3,7 +3,7 @@ import 'package:flutter_bbcode/flutter_bbcode.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  const TextStyle defaultStyle = TextStyle(color: Colors.black, fontSize: 14);
+  const TextStyle defaultStyle = TextStyle(color: Colors.black, fontSize: 14, height: 1);
 
   group("Flutter parseBBCode", () {
     test("No BBCode tag (span compression)", () {
