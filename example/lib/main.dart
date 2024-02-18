@@ -46,10 +46,10 @@ class MyApp extends StatelessWidget {
   });
 
   static final styles = <HintedStyle>[
-    HintedStyle(null, "Default style"),
+    HintedStyle(defaultBBStylesheet(), "Default style"),
     HintedStyle(
         defaultBBStylesheet(
-            textStyle: const TextStyle(color: Colors.blue, fontSize: 28)),
+            textStyle: const TextStyle(color: Colors.blue, fontSize: 28, height: 1)),
         "Default style with text style changed."),
     HintedStyle(BBStylesheet(tags: []), "Empty style sheet"),
     HintedStyle(defaultBBStylesheet().replaceTag(HeaderTag(3, 6)),
@@ -101,7 +101,20 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentStyleIndex = 0;
 
   String get _currentExampleText => widget.examples[_currentTextIndex];
+
   HintedStyle get _currentHintedStyle => widget.styles[_currentStyleIndex]!;
+
+  bool selectable = false;
+
+  void _showSnack(String text) {
+    var sm = ScaffoldMessenger.of(context);
+    sm.clearSnackBars();
+    sm.showSnackBar(SnackBar(
+      content: Text(text),
+      behavior: SnackBarBehavior.fixed,
+      duration: const Duration(seconds: 2),
+    ));
+  }
 
   void _selectNextExample() {
     setState(() {
@@ -114,15 +127,21 @@ class _MyHomePageState extends State<MyHomePage> {
       _currentStyleIndex = (_currentStyleIndex + 1) % widget.styles.length;
     });
 
-    var sm = ScaffoldMessenger.of(context);
-    sm.clearSnackBars();
-    sm.showSnackBar(SnackBar(
-      content: Text(_currentHintedStyle.hint),
-    ));
+    _showSnack(_currentHintedStyle.hint);
+  }
+
+  void _toggleSelectableText() {
+    setState(() {
+      selectable = !selectable;
+    });
+
+    _showSnack("Selectable text: $selectable");
   }
 
   @override
   Widget build(BuildContext context) {
+    var style = _currentHintedStyle.style?.copyWith(selectableText: selectable);
+
     Widget parsedBBCode = BBCodeText(
         errorBuilder: (context, error, stack) {
           return Column(
@@ -136,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           );
         },
-        stylesheet: _currentHintedStyle.style,
+        stylesheet: style,
         data: _currentExampleText);
 
     return Scaffold(
@@ -148,7 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Center(child: parsedBBCode),
       ),
       floatingActionButton:
-          Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+      Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         FloatingActionButton.small(
           onPressed: _selectNextExample,
           tooltip: 'Next example text',
@@ -158,7 +177,12 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: _selectNextStyle,
           child: const Icon(Icons.draw),
           tooltip: 'Next BBStylesheet',
-        )
+        ),
+        FloatingActionButton.small(
+          onPressed: _toggleSelectableText,
+          child: const Icon(Icons.select_all),
+          tooltip: 'Toggle selectable text',
+        ),
       ]),
     );
   }
