@@ -18,7 +18,7 @@ const String flutterLogo = '''
 [h2]Flutter[/h2]
 [url=https://flutter.dev/][img]https://i.imgur.com/fvPRAWW.png[/img][/url]
 
-[i]The text is actually a link![/i] Isn't that amazing! Who would have thought you could actually do such things in [color=#00b7ff][b]Flutter[/b][/color].
+[i]The image is actually a link![/i] Isn't that amazing! Who would have thought you could actually do such things in [color=#00b7ff][b]Flutter[/b][/color].
 ''';
 
 const String flutterText = '''
