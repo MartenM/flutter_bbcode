@@ -1,48 +1,31 @@
 import 'package:flutter/material.dart';
 
-class SpoilerDisplay extends StatefulWidget {
+class SpoilerDisplay extends StatelessWidget {
   final String spoilerText;
   final List<InlineSpan> content;
+  final double elevation;
+  final bool selectable;
 
-  const SpoilerDisplay(
-      {Key? key, required this.spoilerText, required this.content})
-      : super(key: key);
-
-  @override
-  State<SpoilerDisplay> createState() => _SpoilerDisplayState();
-}
-
-class _SpoilerDisplayState extends State<SpoilerDisplay> {
-  bool expanded = false;
+  const SpoilerDisplay({Key? key, required this.spoilerText, required this.content, this.elevation = 2, this.selectable = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_button(), if (expanded) _content()],
+      child: Card(
+        elevation: elevation,
+        child: ExpansionTile(
+          title: Text(spoilerText),
+          shape: const Border(),
+          children: [
+            Divider(height: 1),
+            Padding(
+                padding: EdgeInsets.all(10),
+                child: selectable ? SelectableText.rich(TextSpan(children: content)) : RichText(text: TextSpan(children: content))
+            )
+          ],
+        ),
       ),
-    );
-  }
-
-  Widget _button() {
-    return ElevatedButton(
-      onPressed: () => setState(() {
-        expanded = !expanded;
-      }),
-      child: Text(widget.spoilerText),
-    );
-  }
-
-  Widget _content() {
-    return Container(
-      padding: const EdgeInsets.all(5),
-      width: double.infinity,
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey, width: 1),
-          color: const Color.fromARGB(255, 245, 245, 245)),
-      child: RichText(text: TextSpan(children: widget.content)),
     );
   }
 }

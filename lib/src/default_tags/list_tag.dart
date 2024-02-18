@@ -67,7 +67,7 @@ abstract class AbstractListTag extends WrappedStyleTag {
   }
 
   @override
-  List<InlineSpan> wrap(bbob.Element element, List<InlineSpan> spans) {
+  List<InlineSpan> wrap(FlutterRenderer renderer, bbob.Element element, List<InlineSpan> spans) {
     // Remove accidental \n at the start and end.
     if (spans.first.toPlainText() == "\n") spans.removeAt(0);
     if (spans.last.toPlainText() == "\n") spans.removeLast();

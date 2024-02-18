@@ -44,7 +44,7 @@ abstract class WrappedStyleTag extends AbstractTag {
   /// Method that should be overwritten by the implementing tag.
   /// The [spans] are all styled children of this tag.
   /// A list of [InlineSpan] should be returned. For a quote tag this would be one single element.
-  List<InlineSpan> wrap(bbob.Element element, List<InlineSpan> spans);
+  List<InlineSpan> wrap(FlutterRenderer renderer, bbob.Element element, List<InlineSpan> spans);
 
   @override
   void onTagStart(FlutterRenderer renderer) {
@@ -55,7 +55,7 @@ abstract class WrappedStyleTag extends AbstractTag {
   @override
   void onTagEnd(FlutterRenderer renderer) {
     final wrappedElement = renderer.endWrappedStyle();
-    final output = wrap(wrappedElement.element, wrappedElement.parsedChildren);
+    final output = wrap(renderer, wrappedElement.element, wrappedElement.parsedChildren);
     renderer.appendTextSpans(output);
     super.onTagEnd(renderer);
   }

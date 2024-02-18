@@ -175,7 +175,7 @@ class QuoteTag extends WrappedStyleTag {
   }) : super("quote");
 
   @override
-  List<InlineSpan> wrap(bbob.Element element, List<InlineSpan> spans) {
+  List<InlineSpan> wrap(FlutterRenderer renderer, bbob.Element element, List<InlineSpan> spans) {
     String? author =
         element.attributes.isNotEmpty ? element.attributes.values.first : null;
 
@@ -194,7 +194,7 @@ class SpoilerTag extends WrappedStyleTag {
   SpoilerTag() : super("spoiler");
 
   @override
-  List<InlineSpan> wrap(bbob.Element element, List<InlineSpan> spans) {
+  List<InlineSpan> wrap(FlutterRenderer renderer, bbob.Element element, List<InlineSpan> spans) {
     late String text;
     if (element.attributes.isNotEmpty) {
       text = "Spoiler: ${element.attributes.values.join(' ')}";
@@ -205,9 +205,10 @@ class SpoilerTag extends WrappedStyleTag {
     return [
       WidgetSpan(
           child: SpoilerDisplay(
-        spoilerText: text,
-        content: spans,
-      ))
+            spoilerText: text,
+            content: spans,
+            selectable: renderer.stylesheet.selectableText,
+          ))
     ];
   }
 }
@@ -216,7 +217,7 @@ class LeftAlignTag extends WrappedStyleTag {
   LeftAlignTag() : super("left");
 
   @override
-  List<InlineSpan> wrap(bbob.Element element, List<InlineSpan> spans) {
+  List<InlineSpan> wrap(FlutterRenderer renderer, bbob.Element element, List<InlineSpan> spans) {
     return [
       WidgetSpan(
           child: SizedBox(
@@ -231,7 +232,7 @@ class CenterAlignTag extends WrappedStyleTag {
   CenterAlignTag() : super("center");
 
   @override
-  List<InlineSpan> wrap(bbob.Element element, List<InlineSpan> spans) {
+  List<InlineSpan> wrap(FlutterRenderer renderer, bbob.Element element, List<InlineSpan> spans) {
     return [
       WidgetSpan(
           child: SizedBox(
@@ -247,7 +248,7 @@ class RightAlignTag extends WrappedStyleTag {
   RightAlignTag() : super("right");
 
   @override
-  List<InlineSpan> wrap(bbob.Element element, List<InlineSpan> spans) {
+  List<InlineSpan> wrap(FlutterRenderer renderer, bbob.Element element, List<InlineSpan> spans) {
     return [
       WidgetSpan(
           child: SizedBox(
