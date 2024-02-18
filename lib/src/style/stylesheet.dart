@@ -22,7 +22,7 @@ class BBStylesheet {
   /// of tags to be supplied.
   BBStylesheet({required Iterable<AbstractTag> tags, TextStyle? defaultText, this.selectableText = false}) {
     defaultTextStyle =
-        defaultText ?? const TextStyle(color: Colors.black, fontSize: 14);
+        defaultText ?? const TextStyle(color: Colors.black, fontSize: 14, height: 1);
 
     for (var parser in tags) {
       _tags[parser.tag] = parser;
@@ -63,6 +63,14 @@ class BBStylesheet {
   /// Removes a tag from this stylesheet.
   void removeTag(String tag) {
     _tags.remove(tag);
+  }
+
+  /// Copies the existing Stylesheet while allowing to modify some properties.
+  BBStylesheet copyWith({TextStyle? defaultTextStyle, bool? selectableText}) {
+    return BBStylesheet(
+        tags: _tags.values,
+        defaultText: defaultTextStyle ?? this.defaultTextStyle,
+        selectableText: selectableText ?? this.selectableText);
   }
 
   /// Gets a list of all currently available tags.
