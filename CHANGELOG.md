@@ -1,3 +1,6 @@
+## 1.5.1
+* Updated dependencies to fix [#12](https://github.com/MartenM/flutter_bbcode/issues/12)
+
 ## 1.5.0
 * 'Selectable' is now part of the Stylesheet.
 * Fixed accessibility issues for future flutter releases.
